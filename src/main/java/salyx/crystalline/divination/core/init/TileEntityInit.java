@@ -6,6 +6,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import salyx.crystalline.divination.CrystalDiv;
 import salyx.crystalline.divination.common.tiles.PedestalTile;
+import salyx.crystalline.divination.common.tiles.RunicInterceptorTile;
 import salyx.crystalline.divination.common.tiles.BaseRuneTile;
 import salyx.crystalline.divination.common.tiles.StorageRuneTile;
 import salyx.crystalline.divination.common.tiles.ExportRuneTile;
@@ -19,6 +20,9 @@ public class TileEntityInit {
 
     public static final RegistryObject<TileEntityType<PedestalTile>> PEDESTAL_TILE_TYPE = TILE_ENTITY_TYPE
     .register("pedestal_tile_type", () -> TileEntityType.Builder.create(PedestalTile::new, BlockInit.PEDESTAL.get()).build(null));
+    
+    public static final RegistryObject<TileEntityType<RunicInterceptorTile>> RUNIC_INTERCEPTOR_TILE_TYPE = TILE_ENTITY_TYPE
+    .register("runic_interceptor_tile_type", () -> TileEntityType.Builder.create(RunicInterceptorTile::new, BlockInit.RUNIC_INTERCEPTOR.get()).build(null));
 
     public static final RegistryObject<TileEntityType<BaseRuneTile>> BASE_RUNE_TILE_TYPE = TILE_ENTITY_TYPE
     .register("base_rune_tile_type", () -> TileEntityType.Builder.create(BaseRuneTile::new, BlockInit.BASE_RUNE.get()).build(null));

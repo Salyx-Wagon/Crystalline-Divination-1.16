@@ -59,6 +59,7 @@ public class CrystalDiv
         RenderTypeLookup.setRenderLayer(BlockInit.LUNAR_CRYSTAL_SEED.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(BlockInit.PYRO_CRYSTAL_SEED.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(BlockInit.HYDRO_CRYSTAL_SEED.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.RUNIC_INTERCEPTOR.get(), RenderType.getTranslucent());
     }
 
     public static class CrystallineDivinationGroup extends ItemGroup {

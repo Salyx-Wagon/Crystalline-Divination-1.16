@@ -21,6 +21,7 @@ import salyx.crystalline.divination.common.blocks.LunarCrystalCluster;
 import salyx.crystalline.divination.common.blocks.LunarCrystalSeed;
 import salyx.crystalline.divination.common.blocks.PyroCrystalCluster;
 import salyx.crystalline.divination.common.blocks.PyroCrystalSeed;
+import salyx.crystalline.divination.common.blocks.RunicInterceptor;
 import salyx.crystalline.divination.common.blocks.SolarCrystalCluster;
 import salyx.crystalline.divination.common.blocks.SolarCrystalSeed;
 
@@ -29,6 +30,13 @@ public class BlockInit {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, CrystalDiv.MOD_ID);
 
     public static final RegistryObject<Pedestal> PEDESTAL = BLOCKS.register("pedestal", () -> new Pedestal(AbstractBlock.Properties
+    .create(Material.WOOD)
+    .harvestTool(ToolType.PICKAXE)
+    .harvestLevel(1)
+    .sound(SoundType.STONE)
+    .hardnessAndResistance(0.7f, 0.7f)));
+
+    public static final RegistryObject<RunicInterceptor> RUNIC_INTERCEPTOR = BLOCKS.register("runic_interceptor", () -> new RunicInterceptor(AbstractBlock.Properties
     .create(Material.WOOD)
     .harvestTool(ToolType.PICKAXE)
     .harvestLevel(1)

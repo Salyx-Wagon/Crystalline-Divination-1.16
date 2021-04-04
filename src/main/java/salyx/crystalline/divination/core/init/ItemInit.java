@@ -212,6 +212,9 @@ public class ItemInit {
     public static final RegistryObject<BlockItem> PEDESTAL = ITEMS.register("pedestal", () -> new BlockItem(BlockInit.PEDESTAL.get(), new Item.Properties()
     .group(ItemGroup.BUILDING_BLOCKS)));
 
+    public static final RegistryObject<BlockItem> RUNIC_INTERCEPTOR = ITEMS.register("runic_interceptor", () -> new BlockItem(BlockInit.RUNIC_INTERCEPTOR.get(), new Item.Properties()
+    .group(ItemGroup.BUILDING_BLOCKS)));
+
     public static final RegistryObject<BlockItem> BASE_RUNE = ITEMS.register("base_rune", () -> new BlockItem(BlockInit.BASE_RUNE.get(), new Item.Properties()
     .group(ItemGroup.MISC)));
 
