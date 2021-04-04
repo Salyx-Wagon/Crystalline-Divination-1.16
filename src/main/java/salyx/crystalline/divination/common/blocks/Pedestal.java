@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import salyx.crystalline.divination.common.tiles.BaseRuneTile;
 import salyx.crystalline.divination.common.tiles.PedestalTile;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 
@@ -74,7 +75,7 @@ public class Pedestal extends BaseHorizontalBlock{
                 te.getItem().setCount(1);
                 player.getHeldItemMainhand().setCount(player.getHeldItemMainhand().getCount()-1);
             }
-            else if(player.getHeldItemMainhand().isEmpty() && !te.getItem().isEmpty() && player.isSneaking()){
+            else if(player.getHeldItemMainhand().isEmpty() && !te.getItem().isEmpty() && player.isSneaking() && !te.isUsedForCrafting){
                 //player.addItemStackToInventory
                 itemHandler.ifPresent(h -> player.addItemStackToInventory(h.extractItem(0, 1, false)));
             }
@@ -92,7 +93,11 @@ public class Pedestal extends BaseHorizontalBlock{
         if(!state.isIn(newState.getBlock())) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if(tileEntity instanceof PedestalTile) {
-                InventoryHelper.dropInventoryItems(worldIn, pos, (PedestalTile)tileEntity);
+                PedestalTile te = (PedestalTile) tileEntity;
+                if(te.craftingRune instanceof BaseRuneTile){
+                    te.craftingRune.cancelCrafting();
+                }
+                InventoryHelper.dropInventoryItems(worldIn, pos, te);
             }
         }
         super.onReplaced(state, worldIn, pos, newState, isMoving);

@@ -67,9 +67,20 @@ public class ItemInit {
     public static final RegistryObject<Item> HYDRO_CRYSTAL_DUST = ITEMS.register("hydro_crystal_dust", () -> new Item(new Item.Properties()
     .group(ItemGroup.MATERIALS)));
     
-
     public static final RegistryObject<CrystallineTablet> CRYSTALLINE_TABLET = ITEMS.register("crystalline_tablet", () -> new CrystallineTablet(new Item.Properties()
     .group(ItemGroup.TOOLS)));
+
+    public static final RegistryObject<Item> BLANK_RUNIC_PARCHMENT = ITEMS.register("blank_runic_parchment", () -> new Item(new Item.Properties()
+    .group(ItemGroup.MISC)));
+
+    public static final RegistryObject<Item> STORAGE_RUNIC_PARCHMENT = ITEMS.register("storage_runic_parchment", () -> new Item(new Item.Properties()
+    .group(ItemGroup.MISC)));
+
+    public static final RegistryObject<Item> EXPORT_RUNIC_PARCHMENT = ITEMS.register("export_runic_parchment", () -> new Item(new Item.Properties()
+    .group(ItemGroup.MISC)));
+
+    public static final RegistryObject<Item> IMPORT_RUNIC_PARCHMENT = ITEMS.register("import_runic_parchment", () -> new Item(new Item.Properties()
+    .group(ItemGroup.MISC)));
 
     // Tools and Armor
     public static final RegistryObject<Item> CRYSTAL_SWORD = ITEMS.register("crystal_sword", () -> new SwordItem(

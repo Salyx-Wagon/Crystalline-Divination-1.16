@@ -3,6 +3,7 @@ package salyx.crystalline.divination.core.event;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
@@ -25,6 +26,7 @@ import salyx.crystalline.divination.CrystalDiv;
 import salyx.crystalline.divination.common.blocks.BaseRune;
 import salyx.crystalline.divination.common.blocks.Pedestal;
 import salyx.crystalline.divination.common.blocks.Rune;
+import salyx.crystalline.divination.common.blocks.RunicInterceptor;
 import salyx.crystalline.divination.common.items.DivinationWand;
 import salyx.crystalline.divination.core.init.BlockInit;
 //import salyx.crystalline.divination.core.init.BlockInit;
@@ -35,13 +37,6 @@ public class EventHandler {
     
     @SubscribeEvent
     public static void onBlockBreak(final BlockEvent.BreakEvent event) {
-        //IWorld world = event.getWorld();
-        //BlockPos pos = event.getPos();
-        //if(event.getState().getBlock().equals(Blocks.GRASS_BLOCK)) {
-        //    world.setBlockState(pos.add(0, 1, 0),
-        //    BlockInit.EXAMPLE_BLOCK.get().getDefaultState(),
-        //    Constants.BlockFlags.BLOCK_UPDATE);
-        //}
         if(event.getPlayer().getHeldItemMainhand().isItemEqualIgnoreDurability(ItemInit.SOLAR_CRYSTAL_PICKAXE.get().getDefaultInstance()) ||
         event.getPlayer().getHeldItemMainhand().isItemEqualIgnoreDurability(ItemInit.SOLAR_CRYSTAL_AXE.get().getDefaultInstance()) ||
         event.getPlayer().getHeldItemMainhand().isItemEqualIgnoreDurability(ItemInit.SOLAR_CRYSTAL_SHOVEL.get().getDefaultInstance()) ||
@@ -191,45 +186,46 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
-        
+        ItemStack offhand = event.getPlayer().getHeldItemOffhand();
         if(event.getPlayer().getHeldItemMainhand().isItemEqual(ItemInit.DIVINATION_WAND.get().getDefaultInstance()) &&
-        event.getPlayer().getHeldItemOffhand().isItemEqual(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance())) {
-            //System.out.println("click");
+        (offhand.isItemEqual(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance()) ||
+        offhand.isItemEqual(ItemInit.STORAGE_RUNIC_PARCHMENT.get().getDefaultInstance()) ||
+        offhand.isItemEqual(ItemInit.EXPORT_RUNIC_PARCHMENT.get().getDefaultInstance()) ||
+        offhand.isItemEqual(ItemInit.IMPORT_RUNIC_PARCHMENT.get().getDefaultInstance()))) {
             boolean success = false;
+            BlockState rune = BlockInit.BASE_RUNE.get().getDefaultState();
+            if(offhand.isItemEqual(ItemInit.STORAGE_RUNIC_PARCHMENT.get().getDefaultInstance())){rune = BlockInit.STORAGE_RUNE.get().getDefaultState();}
+            if(offhand.isItemEqual(ItemInit.EXPORT_RUNIC_PARCHMENT.get().getDefaultInstance())){rune = BlockInit.EXPORT_RUNE.get().getDefaultState();}
+            if(offhand.isItemEqual(ItemInit.IMPORT_RUNIC_PARCHMENT.get().getDefaultInstance())){rune = BlockInit.IMPORT_RUNE.get().getDefaultState();}
+            
             if(event.getFace().equals(Direction.UP) && event.getWorld().isAirBlock(event.getPos().up())) {
-                //System.out.println("Up");
                 event.getWorld().setBlockState(event.getPos().up(), 
-                BlockInit.BASE_RUNE.get().getDefaultState().with(BaseRune.FACING, Direction.DOWN));
+                rune.with(BaseRune.FACING, Direction.DOWN));
                 success = true;
             }
             else if(event.getFace().equals(Direction.DOWN) && event.getWorld().isAirBlock(event.getPos().down())) {
-                //System.out.println("Down");
                 event.getWorld().setBlockState(event.getPos().down(), 
-                BlockInit.BASE_RUNE.get().getDefaultState().with(BaseRune.FACING, Direction.UP));
+                rune.with(BaseRune.FACING, Direction.UP));
                 success = true;
             }
             else if(event.getFace().equals(Direction.NORTH) && event.getWorld().isAirBlock(event.getPos().north())) {
-                //System.out.println("North");
                 event.getWorld().setBlockState(event.getPos().north(), 
-                BlockInit.BASE_RUNE.get().getDefaultState().with(BaseRune.FACING, Direction.SOUTH));
+                rune.with(BaseRune.FACING, Direction.SOUTH));
                 success = true;
             }
             else if(event.getFace().equals(Direction.SOUTH) && event.getWorld().isAirBlock(event.getPos().south())) {
-                //System.out.println("South");
                 event.getWorld().setBlockState(event.getPos().south(), 
                 BlockInit.BASE_RUNE.get().getDefaultState().with(BaseRune.FACING, Direction.NORTH));
                 success = true;
             }
             else if(event.getFace().equals(Direction.EAST) && event.getWorld().isAirBlock(event.getPos().east())) {
-                //System.out.println("East");
                 event.getWorld().setBlockState(event.getPos().east(), 
-                BlockInit.BASE_RUNE.get().getDefaultState().with(BaseRune.FACING, Direction.WEST));
+                rune.with(BaseRune.FACING, Direction.WEST));
                 success = true;
             }
             else if(event.getFace().equals(Direction.WEST) && event.getWorld().isAirBlock(event.getPos().west())) {
-                //System.out.println("West");
                 event.getWorld().setBlockState(event.getPos().west(), 
-                BlockInit.BASE_RUNE.get().getDefaultState().with(BaseRune.FACING, Direction.EAST));
+                rune.with(BaseRune.FACING, Direction.EAST));
                 success = true;
             }
             if(success) {
@@ -279,8 +275,8 @@ public class EventHandler {
     public static void placeBlockEvent(final EntityPlaceEvent event){
         if(event.getEntity() instanceof PlayerEntity){
             if(!event.getEntity().isSneaking() && (event.getPlacedAgainst().getBlock() instanceof Rune||
-                                                    //event.getPlacedAgainst().equals(BlockInit.STORAGE_RUNE) ||
-                                                    event.getPlacedAgainst().getBlock() instanceof Pedestal)) {
+                                                    event.getPlacedAgainst().getBlock() instanceof Pedestal||
+                                                    event.getPlacedAgainst().getBlock() instanceof RunicInterceptor)) {
                 event.setCanceled(true);
             }
         }

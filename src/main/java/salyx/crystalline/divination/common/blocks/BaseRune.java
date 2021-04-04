@@ -41,7 +41,7 @@ public class BaseRune extends Rune{
             //TileEntity te = worldIn.getTileEntity(pos);
             BaseRuneTile bte = (BaseRuneTile) worldIn.getTileEntity(pos);
             LazyOptional<IItemHandler> itemHandler = bte.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-            if(clickCooldown == 0 && !player.getHeldItemMainhand().isItemEqual(ItemInit.DIVINATION_WAND.get().getDefaultInstance())) {
+            if(clickCooldown == 0 && !player.getHeldItemMainhand().isItemEqual(ItemInit.DIVINATION_WAND.get().getDefaultInstance()) && bte.tick == 0) {
                 if(player.isSneaking() && player.getHeldItemMainhand().isEmpty()) {
                     for(int e=4; e>-1; e--) {
                         int slot = e;

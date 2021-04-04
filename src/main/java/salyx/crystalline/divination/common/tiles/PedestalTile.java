@@ -22,6 +22,9 @@ public class PedestalTile extends LockableLootTileEntity implements ITickableTil
 
     public static int slots = 1;
 
+    public boolean isUsedForCrafting = false;
+    public BaseRuneTile craftingRune;
+
     protected NonNullList<ItemStack> items = NonNullList.withSize(slots, ItemStack.EMPTY);
 
     protected PedestalTile(TileEntityType<?> typeIn) {
@@ -73,6 +76,12 @@ public class PedestalTile extends LockableLootTileEntity implements ITickableTil
     @Override
     public void tick() {
         this.world.notifyBlockUpdate(pos, this.getBlockState(), this.getBlockState(), 0);
+        if(this.isUsedForCrafting){
+            if(this.craftingRune.isRemoved()){
+                this.isUsedForCrafting = false;
+                this.craftingRune = null;
+            }
+        }
     }
     @Override
     public CompoundNBT serializeNBT() {
