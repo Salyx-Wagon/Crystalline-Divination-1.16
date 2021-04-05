@@ -1,10 +1,9 @@
 # Crystalline-Divination
  A Minecraft Forge mod for 1.16.4/5 that is under heavy devolvement.
 
-v0.8
-
 Changelog
 *********
+v0.8
 + Added Export Rune
 + Added Import Rune
 + Added tier 2 crafting
@@ -15,6 +14,9 @@ Changelog
 --Removed the "Advanced Item" from the creative menu
 
 ~ Due to corrupted files, changed the GitHub repository. The old one can still be found at https://github.com/Salyx-Wagon/Crystalline-Divination
+
+v0.8.1
+~ Fixed rune crafting bug
 
 Features
 ********
