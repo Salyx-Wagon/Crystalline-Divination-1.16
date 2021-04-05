@@ -1,0 +1,8 @@
+- Creation and Destruction Runes (placing and breaking blocks in the world)
+- Cental Storage System
+- Terminal runes to view all the storage runes in the system.
+- Transport rune to teleport the player short distances.
+- Tier 3 crafting with a multi-block rune.
+- Rituals.
+- Better generation for crystal clusters.
+- Liquid Crystalline & uses.

@@ -29,32 +29,45 @@ public class DivinationWand extends Item{
         
         if(context.getPlayer().isSneaking() && context.getWorld().getTileEntity(context.getPos()) instanceof BaseRuneTile){
             BaseRuneTile bte = (BaseRuneTile) context.getWorld().getTileEntity(context.getPos());
-            if(bte.getItem(0).isItemEqualIgnoreDurability(Items.CHEST.getDefaultInstance()) &&
-                bte.getItem(1).isItemEqualIgnoreDurability(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance()) &&
-                bte.getItem(2).isItemEqualIgnoreDurability(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance()) &&
-                bte.getItem(3).isItemEqualIgnoreDurability(ItemInit.PYRO_CRYSTAL.get().getDefaultInstance()) &&
-                bte.getItem(4).isItemEqualIgnoreDurability(ItemInit.HYDRO_CRYSTAL.get().getDefaultInstance())) {
+            List<String> baseRuneItems = new ArrayList<String>();
+            baseRuneItems.add(bte.getItem(1).getItem().getItem().getDefaultInstance().toString());
+            baseRuneItems.add(bte.getItem(2).getItem().getItem().getDefaultInstance().toString());
+            baseRuneItems.add(bte.getItem(3).getItem().getItem().getDefaultInstance().toString());
+            baseRuneItems.add(bte.getItem(4).getItem().getItem().getDefaultInstance().toString());
+            baseRuneItems.sort(null);
+            if(bte.getItem(0).getItem().getDefaultInstance().isItemEqualIgnoreDurability(Items.CHEST.getDefaultInstance()) &&
+                baseRuneItems.contains(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.contains(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.contains(ItemInit.PYRO_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.contains(ItemInit.HYDRO_CRYSTAL.get().getDefaultInstance().toString())) {
                     bte.craftRune(BlockInit.STORAGE_RUNE.get(), ItemInit.STORAGE_RUNIC_PARCHMENT.get().getDefaultInstance(), 1);
                 }
-            if(bte.getItem(0).isItemEqualIgnoreDurability(Items.GLASS_PANE.getDefaultInstance()) &&
-                bte.getItem(1).isItemEqualIgnoreDurability(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance()) &&
-                bte.getItem(2).isItemEqualIgnoreDurability(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance()) &&
-                bte.getItem(3).isItemEqualIgnoreDurability(ItemInit.PYRO_CRYSTAL.get().getDefaultInstance()) &&
-                bte.getItem(4).isItemEqualIgnoreDurability(ItemInit.HYDRO_CRYSTAL.get().getDefaultInstance())) {
+            if(bte.getItem(0).getItem().getDefaultInstance().isItemEqualIgnoreDurability(Items.GLASS_PANE.getDefaultInstance()) &&
+                baseRuneItems.contains(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.contains(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.contains(ItemInit.PYRO_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.contains(ItemInit.HYDRO_CRYSTAL.get().getDefaultInstance().toString())) {
                     bte.craftItem(ItemInit.CRYSTALLINE_TABLET.get().getDefaultInstance(), 1);
                 }
-            if(bte.getItem(0).isItemEqualIgnoreDurability(Items.HOPPER.getDefaultInstance()) &&
-                bte.getItem(1).isItemEqualIgnoreDurability(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance()) &&
-                bte.getItem(2).isItemEqualIgnoreDurability(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance()) &&
-                bte.getItem(3).isItemEqualIgnoreDurability(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance()) &&
-                bte.getItem(4).isItemEqualIgnoreDurability(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance())) {
+            if(bte.getItem(0).getItem().getDefaultInstance().isItemEqualIgnoreDurability(Items.HOPPER.getDefaultInstance()) &&
+                baseRuneItems.get(0).equals(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(1).equals(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(2).equals(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(3).equals(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance().toString())) {
                     bte.craftRune(BlockInit.EXPORT_RUNE.get(), ItemInit.EXPORT_RUNIC_PARCHMENT.get().getDefaultInstance(), 1);
                 }
-            if(bte.getItem(0).isItemEqualIgnoreDurability(Items.HOPPER.getDefaultInstance()) &&
-                bte.getItem(1).isItemEqualIgnoreDurability(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance()) &&
-                bte.getItem(2).isItemEqualIgnoreDurability(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance()) &&
-                bte.getItem(3).isItemEqualIgnoreDurability(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance()) &&
-                bte.getItem(4).isItemEqualIgnoreDurability(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance())) {
+            if(bte.getItem(0).getItem().getDefaultInstance().isItemEqualIgnoreDurability(Items.HOPPER.getDefaultInstance()) &&
+                baseRuneItems.get(0).equals(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(1).equals(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(2).equals(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(3).equals(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance().toString())) {
+                    bte.craftRune(BlockInit.IMPORT_RUNE.get(), ItemInit.IMPORT_RUNIC_PARCHMENT.get().getDefaultInstance(), 1);
+                }
+            if(bte.getItem(0).getItem().getDefaultInstance().isItemEqualIgnoreDurability(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance()) &&
+                baseRuneItems.get(0).equals(Items.PAPER.getDefaultInstance().toString()) &&
+                baseRuneItems.get(1).equals(Items.PAPER.getDefaultInstance().toString()) &&
+                baseRuneItems.get(2).equals(Items.PAPER.getDefaultInstance().toString()) &&
+                baseRuneItems.get(3).equals(Items.PAPER.getDefaultInstance().toString())) {
                     bte.craftRune(BlockInit.IMPORT_RUNE.get(), ItemInit.IMPORT_RUNIC_PARCHMENT.get().getDefaultInstance(), 1);
                 }
             // TIER 2 CRAFTING
@@ -66,15 +79,16 @@ public class DivinationWand extends Item{
                     pedestalItems.add(pedestals.get(2).getItem().getItem().getDefaultInstance().toString());
                     pedestalItems.add(pedestals.get(3).getItem().getItem().getDefaultInstance().toString());
                 }
-            if(bte.getItem(0).isItemEqualIgnoreDurability(ItemInit.PEDESTAL.get().getDefaultInstance()) &&
-                bte.getItem(1).isItemEqualIgnoreDurability(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance()) &&
-                bte.getItem(2).isItemEqualIgnoreDurability(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance()) &&
-                bte.getItem(3).isItemEqualIgnoreDurability(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance()) &&
-                bte.getItem(4).isItemEqualIgnoreDurability(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance()) &&
-                pedestalItems.contains(ItemInit.SOLAR_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
-                pedestalItems.contains(ItemInit.LUNAR_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
-                pedestalItems.contains(ItemInit.PYRO_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
-                pedestalItems.contains(ItemInit.HYDRO_CRYSTAL_DUST.get().getDefaultInstance().toString())) {
+            pedestalItems.sort(null);
+            if(bte.getItem(0).getItem().getDefaultInstance().isItemEqualIgnoreDurability(ItemInit.PEDESTAL.get().getDefaultInstance()) &&
+                baseRuneItems.get(0).equals(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(1).equals(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(2).equals(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(3).equals(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                pedestalItems.get(0).equals(ItemInit.SOLAR_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                pedestalItems.get(1).equals(ItemInit.LUNAR_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                pedestalItems.get(2).equals(ItemInit.PYRO_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                pedestalItems.get(3).equals(ItemInit.HYDRO_CRYSTAL_DUST.get().getDefaultInstance().toString())) {
                     for(int p = 0; p<4; p++){
                         pedestals.get(p).isUsedForCrafting = true;
                         pedestals.get(p).craftingRune = bte;

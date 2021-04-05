@@ -1,5 +1,5 @@
 # Crystalline-Divination
- A Minecraft Forge mod for 1.16.4/5 that is under heavy devolpement.
+ A Minecraft Forge mod for 1.16.4/5 that is under heavy devolvement.
 
 v0.8
 
@@ -7,7 +7,11 @@ Changelog
 *********
 + Added Export Rune
 + Added Import Rune
++ Added tier 2 crafting
++ Added Runic Interceptor
++ Added Runic Parchment
 ~ Updated Rendering of runes
+~ Updated how the Base Rune crafts
 
 Features
 ********
@@ -16,7 +20,8 @@ Features
 have a full set of a single type of armor.
 - Crystal dusts that can be crafted into any type of dye
 - A wand to create various runes which all have different uses. 
-- A pedestal to display items on (functional use comming soon)
+- A pedestal to display items on or preform runic crafting with.
+- Runic Parchment to place runes anywhere.
 
 
 Player Guide
@@ -27,7 +32,7 @@ Player Guide
 	-Pyro crystals spawn in desert and wasteland biomes and the nether.
 	-Hydro crystals spawn in oceans and rivers.
 
-- Crystals can be grown and reharvested in specific environments. They all have 4 stages, you know when they're grown when they start to emit particles.
+- Crystals can be grown and harvested in specific environments. They all have 4 stages, you know when they're grown when they start to emit particles.
 	-Solar crystals can be grown on glowstone, sea lanterns, or shroomlights. They must also have a light level of 12 or above.
 	-Lunar crystals can be grown on bedrock, obsidian, and netherite blocks. They must also have a light level of 7 or below.
 	-Pyro crystals can be grown on magma blocks. They must also have lava adjacent to the block it's on.
@@ -57,36 +62,51 @@ Player Guide
 - Hydro tools and armor
 	- All hydro effects will only apply when in water or rain
 	- When holding a hydro tool, you'll gain haste 25 (this negates the slow mining that comes from being in water)
-	- When wearing a hydro chestplate you'll gain dophin's grace
+	- When wearing a hydro chestplate you'll gain dolphin's grace
 	- A full set of hydro armor will give conduit power to all players and mobs within a 32 block radius including yourself
 
 - All variants of crystals can be crafted in the stone cutter to get 2x crystal dust.
 
-- Crafting with the 5 crystal dusts, you can create all 16 dyes.
+- Crafting with the 5 crystal dusts, you can craft all 16 dyes.
 
 - To craft a Divination Wand you'll need a couple sticks, a pure crystal, and the 4 other variants of crystals.
 
 - To create the base rune, you'll need to have pure crystal dust in your offhand and right click a surface with the divination wand.
 
-- Crafting with the base rune requires a specific order, right-click the ingredients onto the base rune and shift + right-click to craft.
+- Crafting with the base rune does not require a specific order, other than the center item; right-click the ingredients onto the 
+base rune and shift + right-click to craft.
 
-- The storage rune is crafted with (in the specific order): chest, solar crystal, lunar crystal, pyro crystal, hydro crystal.
+- The storage rune is crafted with: Chest (in the center), solar crystal, lunar crystal, pyro crystal, hydro crystal.
 	- The storage rune is used to store items, it has the capacity of a normal chest. If you want to stop rendering the items, give the rune a redstone signal.
 
-- The Crystalline Tablet is crafted with glass pane, solar crystal, lunar crystal, pyro crystal, hydro crystal.
+- The Crystalline Tablet is crafted with: glass pane (in the center), solar crystal, lunar crystal, pyro crystal, hydro crystal.
 	- You can shift + right-click a storage rune with the tablet to link it, then you can access that storage rune with the tablet as long as you're within 128 blocks.
 
-- The export rune is crafted with ...
+- The export rune is crafted with: hopper (in the center), and 4 solar crystals.
 	- The export rune is used to export items from a (storage) rune to any other block inventory. 
 	- Place the rune on the side of the block you want to export to, then shift-click the rune you're exporting from with your
 	divination wand, then shift-click the export rune. 
 
-- The import rune is crafted with ...
+- The import rune is crafted with: hopper (in the center), and 4 lunar crystals.
 	- The import rune is used to import items to a (storage) rune from any other block inventory. 
 	- Place the rune on the side of the block you want to import from, then shift-click the rune you're importing to with your
 	divination wand, then shift-click the import rune. 
-** Item filters for the import and export runes
-	- You can filter both runes the same way. Have the item you're filtering in your offand whilst you right-click the rune with
+
+- **Item filters for the import and export runes.
+	- You can filter both runes the same way. Have the item you're filtering in your offhand whilst you right-click the rune with
 	the divination wand. Click again with the same item in your offhand to toggle between whitelisting and blacklisting (as seen by
 	black or white text that's shown when you hold the wand). To remove the filter just right-click the rune with the wand with 
 	nothing in your offhand.
+
+- Tier 2 Rune Crafting: All tier 2 crafting recipes require 4 pedestals to be placed around the rune. They can be placed anywhere 
+within a 5x5x5 cube centered on the rune. The items placed on the pedestals can be in any order.
+
+- The runic interceptor is crafted with: a pedestal (in the center), 4 pure crystal dust, and on the surrounding pedestals: solar 
+crystal dust, lunar crystal dust, hydro crystal dust, pyro crystal dust.
+	- The runic interceptor is useful in runic crafting. Place it anywhere in a 5x5x5 cube centered on the rune, and when crafted, 
+	the item that was supposed to be crafted will show up in the rune. For crafting other runes, you must first place a blank runic 
+	parchment in it. This will instead inscribe the parchment with whatever rune was supposed to be crafted.
+
+- Blank Runic Parchment is crafted with: a pure crystal dust (in the center), and 4 paper.
+	- Runic parchment can be used to place runes anywhere. Put it in your offhand and right-click where you want to place it with 
+	your divination wand. 

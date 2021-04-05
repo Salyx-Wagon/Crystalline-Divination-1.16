@@ -64,5 +64,12 @@
     "item.crystaldiv.solar_crystal_dust": "Solar Crystal Dust",
     "item.crystaldiv.lunar_crystal_dust": "Lunar Crystal Dust",
     "item.crystaldiv.pyro_crystal_dust": "Pyro Crystal Dust",
-    "item.crystaldiv.hydro_crystal_dust": "Hydro Crystal Dust"
+    "item.crystaldiv.hydro_crystal_dust": "Hydro Crystal Dust",
+    "item.crystaldiv.blank_runic_parchment": "Blank Runic Parchment",
+    "item.crystaldiv.storage_runic_parchment": "Storage Runic Parchment",
+    "item.crystaldiv.export_runic_parchment": "Export Runic Parchment",
+    "item.crystaldiv.import_runic_parchment": "Import Runic Parchment",
+    "block.crystaldiv.runic_interceptor": "Runic Interceptor",
+    "block.crystaldiv.export_rune": "Export Rune",
+    "block.crystaldiv.import_rune": "Import Rune"
 }

@@ -31,7 +31,6 @@ public class ItemInit {
     // Items
 
     public static final RegistryObject<SpecialItem> ADVANCED_ITEM = ITEMS.register("advanced_item", () -> new SpecialItem(new Item.Properties()
-    .group(ItemGroup.MISC)
     .addToolType(ToolType.PICKAXE, 10)));
 
     public static final RegistryObject<Item> SOLAR_CRYSTAL = ITEMS.register("solar_crystal", () -> new Item(new Item.Properties()
@@ -226,9 +225,6 @@ public class ItemInit {
     public static final RegistryObject<BlockItem> RUNIC_INTERCEPTOR = ITEMS.register("runic_interceptor", () -> new BlockItem(BlockInit.RUNIC_INTERCEPTOR.get(), new Item.Properties()
     .group(ItemGroup.BUILDING_BLOCKS)));
 
-    public static final RegistryObject<BlockItem> BASE_RUNE = ITEMS.register("base_rune", () -> new BlockItem(BlockInit.BASE_RUNE.get(), new Item.Properties()
-    .group(ItemGroup.MISC)));
-
     public static final RegistryObject<BlockItem> SOLAR_CRYSTAL_CLUSTER = ITEMS.register("solar_crystal_cluster", () -> new BlockItem(BlockInit.SOLAR_CRYSTAL_CLUSTER.get(), new Item.Properties()
     .group(ItemGroup.MATERIALS)));
 
@@ -241,12 +237,11 @@ public class ItemInit {
     public static final RegistryObject<BlockItem> HYDRO_CRYSTAL_CLUSTER = ITEMS.register("hydro_crystal_cluster", () -> new BlockItem(BlockInit.HYDRO_CRYSTAL_CLUSTER.get(), new Item.Properties()
     .group(ItemGroup.MATERIALS)));
 
-    public static final RegistryObject<BlockItem> STORAGE_RUNE = ITEMS.register("storage_rune", () -> new BlockItem(BlockInit.STORAGE_RUNE.get(), new Item.Properties()
-    .group(ItemGroup.MATERIALS)));
+    public static final RegistryObject<BlockItem> BASE_RUNE = ITEMS.register("base_rune", () -> new BlockItem(BlockInit.BASE_RUNE.get(), new Item.Properties()));
 
-    public static final RegistryObject<BlockItem> EXPORT_RUNE = ITEMS.register("export_rune", () -> new BlockItem(BlockInit.EXPORT_RUNE.get(), new Item.Properties()
-    .group(ItemGroup.MATERIALS)));
+    public static final RegistryObject<BlockItem> STORAGE_RUNE = ITEMS.register("storage_rune", () -> new BlockItem(BlockInit.STORAGE_RUNE.get(), new Item.Properties()));
 
-    public static final RegistryObject<BlockItem> IMPORT_RUNE = ITEMS.register("import_rune", () -> new BlockItem(BlockInit.IMPORT_RUNE.get(), new Item.Properties()
-    .group(ItemGroup.MATERIALS)));
+    public static final RegistryObject<BlockItem> EXPORT_RUNE = ITEMS.register("export_rune", () -> new BlockItem(BlockInit.EXPORT_RUNE.get(), new Item.Properties()));
+
+    public static final RegistryObject<BlockItem> IMPORT_RUNE = ITEMS.register("import_rune", () -> new BlockItem(BlockInit.IMPORT_RUNE.get(), new Item.Properties()));
 }

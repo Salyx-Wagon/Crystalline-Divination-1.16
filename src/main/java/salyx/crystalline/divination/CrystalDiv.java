@@ -137,9 +137,11 @@ public class CrystalDiv
             items.add(ItemInit.DIVINATION_WAND.get().getDefaultInstance());
             items.add(ItemInit.CRYSTALLINE_TABLET.get().getDefaultInstance());
             items.add(ItemInit.PEDESTAL.get().getDefaultInstance());
-            items.add(ItemInit.ADVANCED_ITEM.get().getDefaultInstance());
-            items.add(ItemInit.BASE_RUNE.get().getDefaultInstance());
-            items.add(ItemInit.STORAGE_RUNE.get().getDefaultInstance());
+            items.add(ItemInit.RUNIC_INTERCEPTOR.get().getDefaultInstance());
+            items.add(ItemInit.BLANK_RUNIC_PARCHMENT.get().getDefaultInstance());
+            items.add(ItemInit.STORAGE_RUNIC_PARCHMENT.get().getDefaultInstance());
+            items.add(ItemInit.EXPORT_RUNIC_PARCHMENT.get().getDefaultInstance());
+            items.add(ItemInit.IMPORT_RUNIC_PARCHMENT.get().getDefaultInstance());
         }
     }
 }
