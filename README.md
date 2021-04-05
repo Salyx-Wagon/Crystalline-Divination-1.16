@@ -12,6 +12,9 @@ Changelog
 + Added Runic Parchment
 ~ Updated Rendering of runes
 ~ Updated how the Base Rune crafts
+--Removed the "Advanced Item" from the creative menu
+
+~ Due to corrupted files, changed the GitHub repository. The old one can still be found at https://github.com/Salyx-Wagon/Crystalline-Divination
 
 Features
 ********
