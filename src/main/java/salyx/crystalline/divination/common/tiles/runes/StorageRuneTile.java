@@ -1,4 +1,4 @@
-package salyx.crystalline.divination.common.tiles;
+package salyx.crystalline.divination.common.tiles.runes;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;

@@ -1,4 +1,4 @@
-package salyx.crystalline.divination.common.blocks;
+package salyx.crystalline.divination.common.blocks.runes;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import salyx.crystalline.divination.common.tiles.BaseRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.BaseRuneTile;
 import salyx.crystalline.divination.core.init.ItemInit;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 

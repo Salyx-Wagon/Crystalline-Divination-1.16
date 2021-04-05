@@ -1,4 +1,4 @@
-package salyx.crystalline.divination.common.tiles;
+package salyx.crystalline.divination.common.tiles.runes;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -32,7 +32,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import salyx.crystalline.divination.common.blocks.ExportRune;
+import salyx.crystalline.divination.common.blocks.runes.ExportRune;
+import salyx.crystalline.divination.common.tiles.ExportRuneItemHandler;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 
 public class ExportRuneTile extends LockableLootTileEntity implements ITickableTileEntity{

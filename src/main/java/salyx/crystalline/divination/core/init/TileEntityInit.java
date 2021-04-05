@@ -7,10 +7,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import salyx.crystalline.divination.CrystalDiv;
 import salyx.crystalline.divination.common.tiles.PedestalTile;
 import salyx.crystalline.divination.common.tiles.RunicInterceptorTile;
-import salyx.crystalline.divination.common.tiles.BaseRuneTile;
-import salyx.crystalline.divination.common.tiles.StorageRuneTile;
-import salyx.crystalline.divination.common.tiles.ExportRuneTile;
-import salyx.crystalline.divination.common.tiles.ImportRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.BaseRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.StorageRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.ExportRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.ImportRuneTile;
 
 public class TileEntityInit {
     

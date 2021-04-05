@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import salyx.crystalline.divination.common.tiles.BaseRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.BaseRuneTile;
 import salyx.crystalline.divination.common.tiles.PedestalTile;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 

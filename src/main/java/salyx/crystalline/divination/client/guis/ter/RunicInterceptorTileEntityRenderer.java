@@ -61,7 +61,7 @@ public class RunicInterceptorTileEntityRenderer extends TileEntityRenderer<Runic
             }
             if(d>0){
                 if(!te.getItem().isEmpty()){
-                    //if(te.getItem().getItem().getDefaultInstance().isItemEqual(Items.PAPER.getDefaultInstance())){
+                    //if(te.getItem().getItem().getDefaultInstance().isItemEqual(Items.BOOK.getDefaultInstance())){
                     //    TEXTURE_BOOK = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("crystaldiv:entities/default_runic_parchment"));
                     //    renderBook(te, partialTicks, matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, (float)(0.5*d));
                     //}

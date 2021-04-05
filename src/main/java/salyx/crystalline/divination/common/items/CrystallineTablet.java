@@ -13,7 +13,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-import salyx.crystalline.divination.common.tiles.StorageRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.StorageRuneTile;
 
 public class CrystallineTablet extends Item{
 

@@ -16,6 +16,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import salyx.crystalline.divination.CrystalDiv;
 import salyx.crystalline.divination.common.containers.PedestalContainer;
+import salyx.crystalline.divination.common.tiles.runes.BaseRuneTile;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 
 public class PedestalTile extends LockableLootTileEntity implements ITickableTileEntity{

@@ -10,11 +10,11 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
-import salyx.crystalline.divination.common.tiles.BaseRuneTile;
-import salyx.crystalline.divination.common.tiles.ExportRuneTile;
-import salyx.crystalline.divination.common.tiles.ImportRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.BaseRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.ExportRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.ImportRuneTile;
 import salyx.crystalline.divination.common.tiles.PedestalTile;
-import salyx.crystalline.divination.common.tiles.StorageRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.StorageRuneTile;
 import salyx.crystalline.divination.core.init.BlockInit;
 import salyx.crystalline.divination.core.init.ItemInit;
 
@@ -28,6 +28,7 @@ public class DivinationWand extends Item{
     public ActionResultType onItemUse(ItemUseContext context) {
         
         if(context.getPlayer().isSneaking() && context.getWorld().getTileEntity(context.getPos()) instanceof BaseRuneTile){
+            
             BaseRuneTile bte = (BaseRuneTile) context.getWorld().getTileEntity(context.getPos());
             List<String> baseRuneItems = new ArrayList<String>();
             baseRuneItems.add(bte.getItem(1).getItem().getItem().getDefaultInstance().toString());
@@ -85,10 +86,11 @@ public class DivinationWand extends Item{
                 baseRuneItems.get(1).equals(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
                 baseRuneItems.get(2).equals(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
                 baseRuneItems.get(3).equals(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
-                pedestalItems.get(0).equals(ItemInit.SOLAR_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
-                pedestalItems.get(1).equals(ItemInit.LUNAR_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
-                pedestalItems.get(2).equals(ItemInit.PYRO_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
-                pedestalItems.get(3).equals(ItemInit.HYDRO_CRYSTAL_DUST.get().getDefaultInstance().toString())) {
+                pedestalItems.contains(ItemInit.SOLAR_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                pedestalItems.contains(ItemInit.LUNAR_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                pedestalItems.contains(ItemInit.PYRO_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                pedestalItems.contains(ItemInit.HYDRO_CRYSTAL_DUST.get().getDefaultInstance().toString())) {
+                    
                     for(int p = 0; p<4; p++){
                         pedestals.get(p).isUsedForCrafting = true;
                         pedestals.get(p).craftingRune = bte;

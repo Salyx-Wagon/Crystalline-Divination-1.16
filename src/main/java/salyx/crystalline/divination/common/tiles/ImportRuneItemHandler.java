@@ -21,6 +21,7 @@ package salyx.crystalline.divination.common.tiles;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import salyx.crystalline.divination.common.tiles.runes.ImportRuneTile;
 
 import javax.annotation.Nonnull;
 

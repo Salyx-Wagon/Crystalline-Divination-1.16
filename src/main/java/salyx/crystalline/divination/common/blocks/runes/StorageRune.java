@@ -1,4 +1,4 @@
-package salyx.crystalline.divination.common.blocks;
+package salyx.crystalline.divination.common.blocks.runes;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -16,7 +16,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import salyx.crystalline.divination.common.tiles.StorageRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.StorageRuneTile;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 
 public class StorageRune extends Rune{

@@ -1,4 +1,4 @@
-package salyx.crystalline.divination.common.blocks;
+package salyx.crystalline.divination.common.blocks.runes;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -6,6 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import salyx.crystalline.divination.common.blocks.BaseRotationalBlock;
 
 public class Rune extends BaseRotationalBlock{
 

@@ -14,7 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 //import net.minecraft.world.World;
-import salyx.crystalline.divination.common.tiles.StorageRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.StorageRuneTile;
 //import salyx.crystalline.divination.core.init.BlockInit;
 import salyx.crystalline.divination.core.init.ContainerTypeInit;
 

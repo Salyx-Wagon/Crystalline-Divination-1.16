@@ -1,4 +1,4 @@
-package salyx.crystalline.divination.common.tiles;
+package salyx.crystalline.divination.common.tiles.runes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +28,11 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import salyx.crystalline.divination.CrystalDiv;
-import salyx.crystalline.divination.common.blocks.BaseRune;
-import salyx.crystalline.divination.common.blocks.Rune;
+import salyx.crystalline.divination.common.blocks.runes.BaseRune;
+import salyx.crystalline.divination.common.blocks.runes.Rune;
 import salyx.crystalline.divination.common.containers.BaseRuneContainer;
+import salyx.crystalline.divination.common.tiles.PedestalTile;
+import salyx.crystalline.divination.common.tiles.RunicInterceptorTile;
 import salyx.crystalline.divination.core.init.ItemInit;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 

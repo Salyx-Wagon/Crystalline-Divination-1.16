@@ -20,7 +20,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
-import salyx.crystalline.divination.common.tiles.ImportRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.ImportRuneTile;
 import salyx.crystalline.divination.core.init.ItemInit;
 
 public class ImportRuneTileEntityRenderer extends TileEntityRenderer<ImportRuneTile>{

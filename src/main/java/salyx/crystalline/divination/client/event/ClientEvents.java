@@ -54,6 +54,6 @@ public class ClientEvents {
     }
     @SubscribeEvent
     public static void stitch(final TextureStitchEvent.Pre event){
-        
+        //event.addSprite(new ResourceLocation("crystaldiv:entities/default_runic_parchment"));
     }
 }

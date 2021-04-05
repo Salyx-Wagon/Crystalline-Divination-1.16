@@ -1,4 +1,4 @@
-package salyx.crystalline.divination.common.blocks;
+package salyx.crystalline.divination.common.blocks.runes;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import salyx.crystalline.divination.common.items.DivinationWand;
-import salyx.crystalline.divination.common.tiles.ImportRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.ImportRuneTile;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 
 public class ImportRune extends Rune{

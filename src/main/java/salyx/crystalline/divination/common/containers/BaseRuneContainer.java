@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
-import salyx.crystalline.divination.common.tiles.BaseRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.BaseRuneTile;
 import salyx.crystalline.divination.core.init.BlockInit;
 import salyx.crystalline.divination.core.init.ContainerTypeInit;
 
