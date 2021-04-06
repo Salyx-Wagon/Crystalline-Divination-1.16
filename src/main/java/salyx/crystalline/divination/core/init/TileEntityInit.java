@@ -11,6 +11,7 @@ import salyx.crystalline.divination.common.tiles.runes.BaseRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.StorageRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.ExportRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.ImportRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.SentientRuneTile;
 
 public class TileEntityInit {
     
@@ -35,5 +36,8 @@ public class TileEntityInit {
     
     public static final RegistryObject<TileEntityType<ImportRuneTile>> IMPORT_RUNE_TILE_TYPE = TILE_ENTITY_TYPE
     .register("import_rune_tile_type", () -> TileEntityType.Builder.create(ImportRuneTile::new, BlockInit.IMPORT_RUNE.get()).build(null));
+    
+    public static final RegistryObject<TileEntityType<SentientRuneTile>> SENTIENT_RUNE_TILE_TYPE = TILE_ENTITY_TYPE
+    .register("sentient_rune_tile_type", () -> TileEntityType.Builder.create(SentientRuneTile::new, BlockInit.SENTIENT_RUNE.get()).build(null));
     
 }

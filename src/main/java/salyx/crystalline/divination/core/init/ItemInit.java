@@ -244,4 +244,7 @@ public class ItemInit {
     public static final RegistryObject<BlockItem> EXPORT_RUNE = ITEMS.register("export_rune", () -> new BlockItem(BlockInit.EXPORT_RUNE.get(), new Item.Properties()));
 
     public static final RegistryObject<BlockItem> IMPORT_RUNE = ITEMS.register("import_rune", () -> new BlockItem(BlockInit.IMPORT_RUNE.get(), new Item.Properties()));
+
+    public static final RegistryObject<BlockItem> SENTIENT_RUNE = ITEMS.register("sentient_rune", () -> new BlockItem(BlockInit.SENTIENT_RUNE.get(), new Item.Properties()));
+
 }

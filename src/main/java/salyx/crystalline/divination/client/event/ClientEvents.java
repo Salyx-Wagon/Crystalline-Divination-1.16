@@ -3,7 +3,6 @@ package salyx.crystalline.divination.client.event;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderHandEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -52,8 +51,8 @@ public class ClientEvents {
             ImportRuneTileEntityRenderer.r = 2000;
         }
     }
-    @SubscribeEvent
-    public static void stitch(final TextureStitchEvent.Pre event){
-        //event.addSprite(new ResourceLocation("crystaldiv:entities/default_runic_parchment"));
-    }
+    //@SubscribeEvent
+    //public static void stitch(final TextureStitchEvent.Pre event){
+    //    //event.addSprite(new ResourceLocation("crystaldiv:entities/default_runic_parchment"));
+    //}
 }
