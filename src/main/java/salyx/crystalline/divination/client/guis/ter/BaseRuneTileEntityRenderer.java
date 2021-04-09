@@ -48,6 +48,7 @@ public class BaseRuneTileEntityRenderer extends TileEntityRenderer<BaseRuneTile>
             ClientPlayerEntity player = mc.player;
             int lightLevel = getLightLevel(te.getWorld(), te.getPos());
             double d = 1;
+            int tick = te.getTileData().getInt("tick");
             if(!te.getPos().withinDistance(player.getPosition(), 8)){
                 if(!te.getPos().withinDistance(player.getPosition(), 16)){
                     d = 0;
@@ -67,15 +68,14 @@ public class BaseRuneTileEntityRenderer extends TileEntityRenderer<BaseRuneTile>
                 matrixStackIn, bufferIn, partialTicks, combinedOverlayIn, lightLevel, (float) (0.6*d));
                 renderItem(te.getItem(4), new double[] {r4, 0.3d, r1}, Vector3f.YP.rotationDegrees(r5), Vector3f.YP.rotationDegrees(0),
                 matrixStackIn, bufferIn, partialTicks, combinedOverlayIn, lightLevel, (float) (0.6*d));
-                //System.out.println(te.tick);
-                if(te.tick>0 && te.tick <= 50){
-                    double h = ((double)te.tick)/100;
+                if(tick>0 && tick <= 50){
+                    double h = ((double)tick)/100;
                     renderItem(ItemInit.BASE_RUNE.get().getDefaultInstance(), new double[] {0.5d, h, 0.5d}, Vector3f.YP.rotationDegrees(-r5), Vector3f.YP.rotationDegrees(0),
                 matrixStackIn, bufferIn, partialTicks, combinedOverlayIn, lightLevel, (float) (2*d));
-                } else if(te.tick>50 && te.tick <= 200) {
-                    float q = (((float)te.tick)-50)/15;
-                    float r0 = (((float)te.tick)-50)*q;
-                    float s = (150-(((float)te.tick)-50))/75;
+                } else if(tick>50 && tick <= 200) {
+                    float q = (((float)tick)-50)/15;
+                    float r0 = (((float)tick)-50)*q;
+                    float s = (150-(((float)tick)-50))/75;
                     renderItem(ItemInit.BASE_RUNE.get().getDefaultInstance(), new double[] {0.5d, 0.5, 0.5d},
                     Vector3f.YP.rotationDegrees(-r5), Vector3f.XP.rotationDegrees(r0), Vector3f.ZP.rotationDegrees(r0),
                     matrixStackIn, bufferIn, partialTicks, combinedOverlayIn, lightLevel, (float) (s*d));

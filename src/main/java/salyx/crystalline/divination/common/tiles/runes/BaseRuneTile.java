@@ -112,14 +112,13 @@ public class BaseRuneTile extends LockableLootTileEntity implements ITickableTil
     }
     @SuppressWarnings("static-access")
     @Override
-    public void tick() {
-        this.world.notifyBlockUpdate(pos, this.getBlockState(), this.getBlockState(), 0);   
+    public void tick() {  
 
         if(BaseRune.clickCooldown > 0) {
-            BaseRune.clickCooldown -= 1;
-            this.world.notifyBlockUpdate(pos, this.getBlockState(), this.getBlockState(), 0);   
+            BaseRune.clickCooldown -= 1; 
         }
         if(this.isCraftingBlock || this.isCraftingItem){this.tick ++;}
+        this.getTileData().putInt("tick", this.tick);
         if(this.tick >= 200){
             if(this.craftingTier == 2){
                 for(int p = 0; p<=3; p++){

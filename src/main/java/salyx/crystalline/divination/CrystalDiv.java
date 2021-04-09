@@ -10,11 +10,13 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import salyx.crystalline.divination.core.init.BlockInit;
 import salyx.crystalline.divination.core.init.ContainerTypeInit;
 import salyx.crystalline.divination.core.init.ItemInit;
 import salyx.crystalline.divination.core.init.TileEntityInit;
+import salyx.crystalline.divination.core.network.CrystalDivNetwork;
 import salyx.crystalline.divination.world.OreGeneration;
 
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +32,7 @@ public class CrystalDiv
     public CrystalDiv() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::setup);
+        bus.addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
         ItemInit.ITEMS.register(bus);
@@ -44,6 +47,10 @@ public class CrystalDiv
     }
 
     private void setup(final FMLClientSetupEvent event) {  
+    }
+
+    public void commonSetup(final FMLCommonSetupEvent event) {
+        CrystalDivNetwork.init();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

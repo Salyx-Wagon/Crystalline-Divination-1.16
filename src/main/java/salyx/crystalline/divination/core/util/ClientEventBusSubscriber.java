@@ -17,6 +17,7 @@ import salyx.crystalline.divination.client.guis.ter.ImportRuneTileEntityRenderer
 import salyx.crystalline.divination.client.guis.ter.PedestalTileEntityRenderer;
 import salyx.crystalline.divination.client.guis.ter.StorageRuneTileEntityRenderer;
 import salyx.crystalline.divination.client.guis.ter.RunicInterceptorTileEntityRenderer;
+import salyx.crystalline.divination.client.guis.ter.SentientRuneTileEntityRenderer;
 import salyx.crystalline.divination.core.init.ContainerTypeInit;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 
@@ -35,6 +36,7 @@ public class ClientEventBusSubscriber {
         ClientRegistry.bindTileEntityRenderer(TileEntityInit.STORAGE_RUNE_TILE_TYPE.get(), StorageRuneTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(TileEntityInit.EXPORT_RUNE_TILE_TYPE.get(), ExportRuneTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(TileEntityInit.IMPORT_RUNE_TILE_TYPE.get(), ImportRuneTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(TileEntityInit.SENTIENT_RUNE_TILE_TYPE.get(), SentientRuneTileEntityRenderer::new);
         
     }
 }

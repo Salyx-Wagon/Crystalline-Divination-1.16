@@ -6,3 +6,8 @@
 - Rituals.
 - Better generation for crystal clusters.
 - Liquid Crystalline & uses.
+
+- Rune for viewing the storage system will be called the Cognitive Rune
+- "Interfaces" will be Synaptic Runes
+- Activator Rune + redstone
+- Export -> Eccentric; Import -> Insightful; Storage -> Spacious; Base -> Empathic

@@ -10,9 +10,12 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TranslationTextComponent;
 import salyx.crystalline.divination.common.tiles.runes.BaseRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.ExportRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.ImportRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.SentientRuneTile;
+import salyx.crystalline.divination.common.blocks.runes.SentientRune;
 import salyx.crystalline.divination.common.tiles.PedestalTile;
 import salyx.crystalline.divination.common.tiles.runes.StorageRuneTile;
 import salyx.crystalline.divination.core.init.BlockInit;
@@ -99,7 +102,9 @@ public class DivinationWand extends Item{
                     bte.craftItem(ItemInit.RUNIC_INTERCEPTOR.get().getDefaultInstance(), 2);
                 }
         }
-        else if(context.getPlayer().isSneaking() && context.getWorld().getTileEntity(context.getPos()) instanceof StorageRuneTile){
+        else if(context.getPlayer().isSneaking() && context.getWorld().getTileEntity(context.getPos()) instanceof StorageRuneTile && cooldown == 0){
+            if(!context.getWorld().isRemote()){
+                StorageRuneTile te = (StorageRuneTile) context.getWorld().getTileEntity(context.getPos());
             CompoundNBT nbt;
             if(context.getPlayer().getHeldItemMainhand().hasTag()) {
                 nbt = context.getPlayer().getHeldItemMainhand().getTag();
@@ -107,10 +112,48 @@ public class DivinationWand extends Item{
             else {
                 nbt = new CompoundNBT();
             }
-            nbt.putInt("X", context.getPos().getX());
-            nbt.putInt("Y", context.getPos().getY());
-            nbt.putInt("Z", context.getPos().getZ());
-            context.getPlayer().getHeldItemMainhand().setTag(nbt);
+            if(nbt.getString("sourceBlock") == "sentient"){
+                BlockPos sourcePos = new BlockPos(nbt.getInt("X"), nbt.getInt("Y"), nbt.getInt("Z"));
+                if(sourcePos.withinDistance(te.getPos(), 128)) {
+                    te.setSentient(sourcePos);
+                }
+                else{
+                    context.getPlayer().sendMessage(new TranslationTextComponent("Too Far Away"), context.getPlayer().getUniqueID());
+                }
+                
+            }
+            else{
+                nbt.putString("sourceBlock", "storage");
+                nbt.putInt("X", context.getPos().getX());
+                nbt.putInt("Y", context.getPos().getY());
+                nbt.putInt("Z", context.getPos().getZ());
+                context.getPlayer().getHeldItemMainhand().setTag(nbt);
+            }}
+            
+        }
+        else if(context.getPlayer().isSneaking() && context.getWorld().getTileEntity(context.getPos()) instanceof SentientRuneTile){
+            SentientRuneTile te = (SentientRuneTile) context.getWorld().getTileEntity(context.getPos());
+            CompoundNBT nbt;
+            if(context.getPlayer().getHeldItemMainhand().hasTag()) {
+                nbt = context.getPlayer().getHeldItemMainhand().getTag();
+            }
+            else {
+                nbt = new CompoundNBT();
+            }
+            if(context.getWorld().getBlockState(context.getPos()).get(SentientRune.CENTER)){
+                nbt.putString("sourceBlock", "sentient");
+                nbt.putInt("X", context.getPos().getX());
+                nbt.putInt("Y", context.getPos().getY());
+                nbt.putInt("Z", context.getPos().getZ());
+                context.getPlayer().getHeldItemMainhand().setTag(nbt);
+            }
+            else if(!context.getWorld().getBlockState(context.getPos()).get(SentientRune.CENTER)){
+                nbt.putString("sourceBlock", "sentient");
+                nbt.putInt("X", te.getCenter().getX());
+                nbt.putInt("Y", te.getCenter().getY());
+                nbt.putInt("Z", te.getCenter().getZ());
+                context.getPlayer().getHeldItemMainhand().setTag(nbt);
+            }
         }
         else if(context.getPlayer().isSneaking() && context.getWorld().getTileEntity(context.getPos()) instanceof ExportRuneTile){
             CompoundNBT nbt;
@@ -121,13 +164,18 @@ public class DivinationWand extends Item{
             else {
                 nbt = new CompoundNBT();
             }
-            if(nbt.contains("X") && nbt.contains("Y") && nbt.contains("Z")){
-                BlockPos sourcePos = new BlockPos(nbt.getInt("X"), nbt.getInt("Y"), nbt.getInt("Z"));
-                if(sourcePos.withinDistance(te.getPos(), 64)) {
-                    te.setSourceX(nbt.getInt("X"));
-                    te.setSourceY(nbt.getInt("Y"));
-                    te.setSourceZ(nbt.getInt("Z"));
-                    te.setHasSource(true);
+            if(nbt.contains("X") && nbt.contains("Y") && nbt.contains("Z") && nbt.contains("sourceBlock")){
+                if(nbt.getString("sourceBlock") == "storage"){
+                    BlockPos sourcePos = new BlockPos(nbt.getInt("X"), nbt.getInt("Y"), nbt.getInt("Z"));
+                    if(sourcePos.withinDistance(te.getPos(), 64)) {
+                        te.setSourceX(nbt.getInt("X"));
+                        te.setSourceY(nbt.getInt("Y"));
+                        te.setSourceZ(nbt.getInt("Z"));
+                        te.setHasSource(true);
+                    }
+                    else{
+                        context.getPlayer().sendMessage(new TranslationTextComponent("Too Far Away"), context.getPlayer().getUniqueID());
+                    }
                 }
             }
         }
@@ -140,17 +188,22 @@ public class DivinationWand extends Item{
             else {
                 nbt = new CompoundNBT();
             }
-            if(nbt.contains("X") && nbt.contains("Y") && nbt.contains("Z")){
-                BlockPos sourcePos = new BlockPos(nbt.getInt("X"), nbt.getInt("Y"), nbt.getInt("Z"));
-                if(sourcePos.withinDistance(te.getPos(), 64)) {
-                    te.setDestX(nbt.getInt("X"));
-                    te.setDestY(nbt.getInt("Y"));
-                    te.setDestZ(nbt.getInt("Z"));
-                    te.setHasDest(true);
+            if(nbt.contains("X") && nbt.contains("Y") && nbt.contains("Z") && nbt.contains("sourceBlock")){
+                if(nbt.getString("sourceBlock") == "storage"){
+                    BlockPos sourcePos = new BlockPos(nbt.getInt("X"), nbt.getInt("Y"), nbt.getInt("Z"));
+                    if(sourcePos.withinDistance(te.getPos(), 64)) {
+                        te.setDestX(nbt.getInt("X"));
+                        te.setDestY(nbt.getInt("Y"));
+                        te.setDestZ(nbt.getInt("Z"));
+                        te.setHasDest(true);
+                    }
+                    else{
+                        context.getPlayer().sendMessage(new TranslationTextComponent("Too Far Away"), context.getPlayer().getUniqueID());
+                    }
                 }
             }
         }
-        else if(context.getPlayer().isSneaking()){
+        else if(context.getPlayer().isSneaking() && cooldown == 0){
             CompoundNBT nbt;
             if(context.getPlayer().getHeldItemMainhand().hasTag()) {
                 nbt = context.getPlayer().getHeldItemMainhand().getTag();
@@ -158,45 +211,45 @@ public class DivinationWand extends Item{
             else {
                 nbt = new CompoundNBT();
             }
+            if(nbt.contains("sourceBlock")) {nbt.remove("sourceBlock");}
             if(nbt.contains("X")) {nbt.remove("X");}
             if(nbt.contains("Y")) {nbt.remove("Y");}
             if(nbt.contains("Z")) {nbt.remove("Z");}
         }
-        else if((context.getWorld().getTileEntity(context.getPos()) instanceof ExportRuneTile) && cooldown == 0 && context.getWorld().isRemote()){
+        else if((context.getWorld().getTileEntity(context.getPos()) instanceof ExportRuneTile) && cooldown == 0){
             ExportRuneTile te = (ExportRuneTile) context.getWorld().getTileEntity(context.getPos());
             if(context.getPlayer().getHeldItemOffhand().isEmpty()){
-                te.getTileData().putBoolean("clientHasFilter", false);
+                te.getTileData().putBoolean("hasFilter", false);
                 te.getTileData().put("itemFilter1", ItemStack.EMPTY.serializeNBT());
             }
             else{
-                te.getTileData().putBoolean("clientHasFilter", true);
+                te.getTileData().putBoolean("hasFilter", true);
                 ItemStack filterItem = ItemStack.read(te.getTileData().getCompound("itemFilter1"));
                 if(filterItem.isItemEqual(context.getPlayer().getHeldItemOffhand().getItem().getDefaultInstance())){
-                    te.getTileData().putBoolean("clientIsWhitelist", !te.getTileData().getBoolean("clientIsWhitelist"));
+                    te.getTileData().putBoolean("isWhitelist", !te.getTileData().getBoolean("isWhitelist"));
                 }else{
                     te.getTileData().put("itemFilter1", context.getPlayer().getHeldItemOffhand().getItem().getDefaultInstance().serializeNBT());
                 }
             }
             
         }
-        else if((context.getWorld().getTileEntity(context.getPos()) instanceof ImportRuneTile) && cooldown == 0 && context.getWorld().isRemote()){
+        else if((context.getWorld().getTileEntity(context.getPos()) instanceof ImportRuneTile) && cooldown == 0){
             ImportRuneTile te = (ImportRuneTile) context.getWorld().getTileEntity(context.getPos());
             if(context.getPlayer().getHeldItemOffhand().isEmpty()){
-                te.getTileData().putBoolean("clientHasFilter", false);
+                te.getTileData().putBoolean("hasFilter", false);
                 te.getTileData().put("itemFilter1", ItemStack.EMPTY.serializeNBT());
             }
             else{
-                te.getTileData().putBoolean("clientHasFilter", true);
+                te.getTileData().putBoolean("hasFilter", true);
                 ItemStack filterItem = ItemStack.read(te.getTileData().getCompound("itemFilter1"));
                 if(filterItem.isItemEqual(context.getPlayer().getHeldItemOffhand().getItem().getDefaultInstance())){
-                    te.getTileData().putBoolean("clientIsWhitelist", !te.getTileData().getBoolean("clientIsWhitelist"));
+                    te.getTileData().putBoolean("isWhitelist", !te.getTileData().getBoolean("isWhitelist"));
                 }else{
                     te.getTileData().put("itemFilter1", context.getPlayer().getHeldItemOffhand().getItem().getDefaultInstance().serializeNBT());
                 }
             }
             
         }
-
         return super.onItemUse(context);
     }
 }

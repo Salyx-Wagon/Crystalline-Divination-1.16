@@ -13,6 +13,7 @@ import salyx.crystalline.divination.client.guis.ter.ExportRuneTileEntityRenderer
 import salyx.crystalline.divination.client.guis.ter.ImportRuneTileEntityRenderer;
 import salyx.crystalline.divination.client.guis.ter.PedestalTileEntityRenderer;
 import salyx.crystalline.divination.client.guis.ter.RunicInterceptorTileEntityRenderer;
+import salyx.crystalline.divination.client.guis.ter.SentientRuneTileEntityRenderer;
 import salyx.crystalline.divination.client.guis.ter.StorageRuneTileEntityRenderer;
 
 @EventBusSubscriber(modid = CrystalDiv.MOD_ID, bus = Bus.FORGE, value = Dist.CLIENT)
@@ -49,6 +50,10 @@ public class ClientEvents {
         --ImportRuneTileEntityRenderer.r;
         if(ImportRuneTileEntityRenderer.r <= 0) {
             ImportRuneTileEntityRenderer.r = 2000;
+        }
+        SentientRuneTileEntityRenderer.r += 0.5;
+        if(SentientRuneTileEntityRenderer.r >= 3600) {
+            SentientRuneTileEntityRenderer.r = 0;
         }
     }
     //@SubscribeEvent

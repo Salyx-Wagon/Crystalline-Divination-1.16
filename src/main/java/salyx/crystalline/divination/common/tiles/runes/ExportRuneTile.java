@@ -19,6 +19,8 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ChestTileEntity;
 //import net.minecraft.tileentity.HopperTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -81,6 +83,9 @@ public class ExportRuneTile extends LockableLootTileEntity implements ITickableT
     public int getSourceZ(){
         return this.getTileData().getInt("sourceZ");
     }
+    public boolean getIsWhiteList(){
+        return this.getTileData().getBoolean("isWhitelist");
+    }
 
     public void read(BlockState state, CompoundNBT nbt) {
         super.read(state, nbt);
@@ -101,7 +106,16 @@ public class ExportRuneTile extends LockableLootTileEntity implements ITickableT
         compound.putInt("TransferCooldown", this.transferCooldown);
         return compound;
     }
-
+    @Override
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        CompoundNBT nbt = new CompoundNBT();
+        this.write(nbt);
+        return new SUpdateTileEntityPacket(this.getPos(), 0, nbt);
+    }
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+        this.read(this.getBlockState(), pkt.getNbtCompound());
+    }
     /**
         * Returns the number of slots in the inventory.
         */

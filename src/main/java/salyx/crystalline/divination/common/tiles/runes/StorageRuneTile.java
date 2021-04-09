@@ -1,5 +1,8 @@
 package salyx.crystalline.divination.common.tiles.runes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -12,6 +15,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import salyx.crystalline.divination.CrystalDiv;
@@ -90,5 +94,23 @@ public class StorageRuneTile extends LockableLootTileEntity implements ITickable
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
         this.read(this.getBlockState(), pkt.getNbtCompound());
+    }
+
+    public void setSentient(BlockPos pos){
+        if(!this.getTileData().getBoolean("hasSentient")){
+            List<Integer> posList = new ArrayList<Integer>();
+            posList.add(pos.getX());posList.add(pos.getY());posList.add(pos.getZ());
+            this.getTileData().putIntArray("sentientPos", posList);
+            this.getTileData().putBoolean("hasSentient", true);
+            if(this.world.getTileEntity(pos) instanceof SentientRuneTile){
+                SentientRuneTile te = (SentientRuneTile) this.world.getTileEntity(pos);
+                te.addRune(this.pos, this.getTileData().getUniqueId("UUID"), "storage");
+            }
+        }
+    }
+    public BlockPos getSentient(){
+        BlockPos pos = new BlockPos(this.getTileData().getIntArray("sentientPos")[0],
+        this.getTileData().getIntArray("sentientPos")[1], this.getTileData().getIntArray("sentientPos")[2]);
+        return pos;
     }
 }

@@ -47,6 +47,7 @@ public class ExportRuneTileEntityRenderer extends TileEntityRenderer<ExportRuneT
             
             else{d = 52/(te.getPos().distanceSq(player.getPosX(), player.getPosY(), player.getPosZ(), true)-8);}
         }
+        
         if(d>0)
         {if(te.getBlockState().toString().contains("down")) {
             renderItem(ItemInit.EXPORT_RUNE.get().getDefaultInstance(), new double[] {0.5d, 0.35+h, 0.5d}, Vector3f.YP.rotationDegrees((float) (r/5.555)), Vector3f.XP.rotationDegrees(0),
@@ -108,7 +109,7 @@ public class ExportRuneTileEntityRenderer extends TileEntityRenderer<ExportRuneT
         TranslationTextComponent(ItemStack.read(te.getTileData().getCompound("itemFilter1")).getTranslationKey());
 
         int color;
-        if(te.getTileData().getBoolean("clientIsWhitelist")){color = 0xffffff;}
+        if(te.getIsWhiteList()){color = 0xffffff;}
         else{color = 0x000000;}
         if(player.getHeldItemMainhand().getItem() == ItemInit.DIVINATION_WAND.get() && 
         !ItemStack.read(te.getTileData().getCompound("itemFilter1")).isEmpty()) {

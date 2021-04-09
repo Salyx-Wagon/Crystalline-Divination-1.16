@@ -1,10 +1,14 @@
 package salyx.crystalline.divination.common.blocks.runes;
 
+import java.util.UUID;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -12,10 +16,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
+import salyx.crystalline.divination.common.tiles.runes.SentientRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.StorageRuneTile;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 
@@ -25,7 +27,12 @@ public class StorageRune extends Rune{
         runCalculation(Block.makeCuboidShape(0, 0, 0, 16, 16, 1));
     }
     @Override
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+        if(worldIn.getTileEntity(pos) instanceof StorageRuneTile){
+            StorageRuneTile te = (StorageRuneTile) worldIn.getTileEntity(pos);
+            te.getTileData().putUniqueId("UUID", UUID.randomUUID());
+        }
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
     @SuppressWarnings("deprecation")
     @Override
@@ -34,10 +41,7 @@ public class StorageRune extends Rune{
         if(!worldIn.isRemote()) {
 
             TileEntity te = worldIn.getTileEntity(pos);
-            StorageRuneTile ste = (StorageRuneTile) worldIn.getTileEntity(pos);
-            LazyOptional<IItemHandler> itemHandler = ste.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-            if(itemHandler.isPresent()) {} //temp
-
+            
             if(te instanceof StorageRuneTile) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, (StorageRuneTile) te, pos);
             }
@@ -58,8 +62,16 @@ public class StorageRune extends Rune{
         if(!state.isIn(newState.getBlock())) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if(tileEntity instanceof StorageRuneTile) {
-                InventoryHelper.dropInventoryItems(worldIn, pos, (StorageRuneTile)tileEntity);
+                StorageRuneTile te = (StorageRuneTile) tileEntity;
+                if(te.getTileData().contains("sentientPos")){
+                    if(worldIn.getTileEntity(te.getSentient()) instanceof SentientRuneTile){
+                        SentientRuneTile ste = (SentientRuneTile) worldIn.getTileEntity(te.getSentient());
+                        ste.preCheck = true;
+                    }
+                }
+                InventoryHelper.dropInventoryItems(worldIn, pos, te);
             }
+
         }
         super.onReplaced(state, worldIn, pos, newState, isMoving);
     }

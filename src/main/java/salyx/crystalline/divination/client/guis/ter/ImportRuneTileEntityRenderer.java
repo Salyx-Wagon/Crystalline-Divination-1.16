@@ -107,7 +107,7 @@ public class ImportRuneTileEntityRenderer extends TileEntityRenderer<ImportRuneT
         TranslationTextComponent(ItemStack.read(te.getTileData().getCompound("itemFilter1")).getTranslationKey());
 
         int color;
-        if(te.getTileData().getBoolean("clientIsWhitelist")){color = 0xffffff;}
+        if(te.getIsWhiteList()){color = 0xffffff;}
         else{color = 0x000000;}
         if(player.getHeldItemMainhand().getItem() == ItemInit.DIVINATION_WAND.get() && 
         !ItemStack.read(te.getTileData().getCompound("itemFilter1")).isEmpty()) {
