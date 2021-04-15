@@ -1,13 +1,12 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "crystaldiv:blocks/sentient_rune",
-		"particle": "crystaldiv:blocks/sentient_rune"
+		"1": "crystaldiv:blocks/cognitive_rune"
 	},
 	"elements": [
 		{
-			"from": [-16, -16, 0.1],
-			"to": [32, 32, 0.1],
+			"from": [0, 0, 8],
+			"to": [16, 16, 8],
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#1"},
 				"east": {"uv": [0, 0, 0, 0], "texture": "#1"},
@@ -21,19 +20,19 @@
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [-60, 0, 0],
-			"translation": [0, 2.25, 0.5],
+			"translation": [0, -2, 0.5],
 			"scale": [0.4, 0.4, 0.4]
 		},
 		"thirdperson_lefthand": {
 			"rotation": [-60, 0, 0],
-			"translation": [0, 2.25, 0.5],
+			"translation": [0, -2, 0.5],
 			"scale": [0.4, 0.4, 0.4]
 		},
 		"firstperson_righthand": {
-			"translation": [12, -6, 0]
+			"translation": [6.25, -0.25, 0]
 		},
 		"firstperson_lefthand": {
-			"translation": [12, -6, 0]
+			"translation": [6.25, -0.25, 0]
 		},
 		"ground": {
 			"rotation": [-90, 0, 0],
@@ -45,11 +44,11 @@
 		},
 		"head": {
 			"rotation": [-90, 0, 0],
-			"translation": [0, 15, 0]
+			"translation": [0, 6.75, 0]
 		},
 		"fixed": {
 			"rotation": [0, -180, 0],
-			"translation": [0, 0, -9]
+			"translation": [0, 0, -0.25]
 		}
 	},
 	"groups": [

@@ -61,6 +61,9 @@ public class RunicInterceptor extends BaseHorizontalBlock{
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
             Hand handIn, BlockRayTraceResult hit) {
+        if(worldIn.isRemote()) {
+            return ActionResultType.SUCCESS;
+        }
         if(!worldIn.isRemote()) {
             RunicInterceptorTile te = (RunicInterceptorTile) worldIn.getTileEntity(pos);
             LazyOptional<IItemHandler> itemHandler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);

@@ -10,7 +10,9 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import salyx.crystalline.divination.CrystalDiv;
+import salyx.crystalline.divination.common.blocks.runes.AdvancedRune;
 import salyx.crystalline.divination.common.blocks.runes.BaseRune;
+import salyx.crystalline.divination.common.blocks.runes.CognitiveRune;
 import salyx.crystalline.divination.common.blocks.runes.ExportRune;
 import salyx.crystalline.divination.common.blocks.Pedestal;
 import salyx.crystalline.divination.common.blocks.runes.StorageRune;
@@ -124,6 +126,16 @@ public class BlockInit {
     .notSolid()));
 
     public static final RegistryObject<SentientRune> SENTIENT_RUNE = BLOCKS.register("sentient_rune", () -> new SentientRune(AbstractBlock.Properties
+    .create(Material.GLASS)
+    .sound(SoundType.CLOTH)
+    .notSolid()));
+
+    public static final RegistryObject<CognitiveRune> COGNITIVE_RUNE = BLOCKS.register("cognitive_rune", () -> new CognitiveRune(AbstractBlock.Properties
+    .create(Material.GLASS)
+    .sound(SoundType.CLOTH)
+    .notSolid()));
+
+    public static final RegistryObject<AdvancedRune> ADVANCED_RUNE = BLOCKS.register("advanced_rune", () -> new AdvancedRune(AbstractBlock.Properties
     .create(Material.GLASS)
     .sound(SoundType.CLOTH)
     .notSolid()));

@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "crystaldiv:blocks/sentient_rune",
-		"particle": "crystaldiv:blocks/sentient_rune"
+		"1": "crystaldiv:blocks/cognitive_rune",
+		"particle": "crystaldiv:blocks/cognitive_rune"
 	},
 	"elements": [
 		{

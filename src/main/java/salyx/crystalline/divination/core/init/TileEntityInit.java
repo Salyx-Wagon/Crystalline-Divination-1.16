@@ -7,11 +7,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 import salyx.crystalline.divination.CrystalDiv;
 import salyx.crystalline.divination.common.tiles.PedestalTile;
 import salyx.crystalline.divination.common.tiles.RunicInterceptorTile;
+import salyx.crystalline.divination.common.tiles.runes.AdvancedRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.BaseRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.StorageRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.ExportRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.ImportRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.SentientRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.CognitiveRuneTile;
 
 public class TileEntityInit {
     
@@ -39,5 +41,11 @@ public class TileEntityInit {
     
     public static final RegistryObject<TileEntityType<SentientRuneTile>> SENTIENT_RUNE_TILE_TYPE = TILE_ENTITY_TYPE
     .register("sentient_rune_tile_type", () -> TileEntityType.Builder.create(SentientRuneTile::new, BlockInit.SENTIENT_RUNE.get()).build(null));
+    
+    public static final RegistryObject<TileEntityType<CognitiveRuneTile>> COGNITIVE_RUNE_TILE_TYPE = TILE_ENTITY_TYPE
+    .register("cognitive_rune_tile_type", () -> TileEntityType.Builder.create(CognitiveRuneTile::new, BlockInit.COGNITIVE_RUNE.get()).build(null));
+    
+    public static final RegistryObject<TileEntityType<AdvancedRuneTile>> ADVANCED_RUNE_TILE_TYPE = TILE_ENTITY_TYPE
+    .register("advanced_rune_tile_type", () -> TileEntityType.Builder.create(AdvancedRuneTile::new, BlockInit.ADVANCED_RUNE.get()).build(null));
     
 }

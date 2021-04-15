@@ -8,9 +8,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import salyx.crystalline.divination.CrystalDiv;
+import salyx.crystalline.divination.client.guis.AdvancedRuneScreen;
 import salyx.crystalline.divination.client.guis.BaseRuneScreen;
+import salyx.crystalline.divination.client.guis.CognitiveRuneScreen;
 import salyx.crystalline.divination.client.guis.PedestalBlockScreen;
 import salyx.crystalline.divination.client.guis.StorageRuneScreen;
+import salyx.crystalline.divination.client.guis.ter.AdvancedRuneTileEntityRenderer;
 import salyx.crystalline.divination.client.guis.ter.BaseRuneTileEntityRenderer;
 import salyx.crystalline.divination.client.guis.ter.ExportRuneTileEntityRenderer;
 import salyx.crystalline.divination.client.guis.ter.ImportRuneTileEntityRenderer;
@@ -28,7 +31,9 @@ public class ClientEventBusSubscriber {
     public static void clientSetup(FMLClientSetupEvent event) {
         ScreenManager.registerFactory(ContainerTypeInit.PEDESTAL_CONTAINER_TYPE.get(), PedestalBlockScreen::new);
         ScreenManager.registerFactory(ContainerTypeInit.BASE_RUNE_CONTAINER_TYPE.get(), BaseRuneScreen::new);
+        ScreenManager.registerFactory(ContainerTypeInit.ADVANCED_RUNE_CONTAINER_TYPE.get(), AdvancedRuneScreen::new);
         ScreenManager.registerFactory(ContainerTypeInit.STORAGE_RUNE_CONTAINER_TYPE.get(), StorageRuneScreen::new);
+        ScreenManager.registerFactory(ContainerTypeInit.COGNITIVE_RUNE_CONTAINER_TYPE.get(), CognitiveRuneScreen::new);
 
         ClientRegistry.bindTileEntityRenderer(TileEntityInit.PEDESTAL_TILE_TYPE.get(), PedestalTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(TileEntityInit.RUNIC_INTERCEPTOR_TILE_TYPE.get(), RunicInterceptorTileEntityRenderer::new);
@@ -37,6 +42,7 @@ public class ClientEventBusSubscriber {
         ClientRegistry.bindTileEntityRenderer(TileEntityInit.EXPORT_RUNE_TILE_TYPE.get(), ExportRuneTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(TileEntityInit.IMPORT_RUNE_TILE_TYPE.get(), ImportRuneTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(TileEntityInit.SENTIENT_RUNE_TILE_TYPE.get(), SentientRuneTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(TileEntityInit.ADVANCED_RUNE_TILE_TYPE.get(), AdvancedRuneTileEntityRenderer::new);
         
     }
 }

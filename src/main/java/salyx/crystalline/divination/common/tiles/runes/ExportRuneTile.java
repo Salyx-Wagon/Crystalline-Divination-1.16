@@ -116,6 +116,14 @@ public class ExportRuneTile extends LockableLootTileEntity implements ITickableT
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
         this.read(this.getBlockState(), pkt.getNbtCompound());
     }
+    @Override
+    public CompoundNBT serializeNBT() {
+        return super.serializeNBT();
+    }
+    @Override
+    public CompoundNBT getUpdateTag() {
+        return this.write(new CompoundNBT());
+    }
     /**
         * Returns the number of slots in the inventory.
         */
@@ -148,6 +156,7 @@ public class ExportRuneTile extends LockableLootTileEntity implements ITickableT
     }
 
     public void tick() {
+        this.world.notifyBlockUpdate(pos, this.getBlockState(), this.getBlockState(), 0);
         if (this.world != null && !this.world.isRemote) {
             if(this.getHasSource()){
                 BlockPos sourcePos = new BlockPos(this.getSourceX(), this.getSourceY(), this.getSourceZ());

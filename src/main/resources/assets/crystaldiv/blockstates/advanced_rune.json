@@ -1,0 +1,16 @@
+{
+    "variants": {
+        "facing=north,center=true": { "model": "crystaldiv:block/advanced_rune_center" },
+        "facing=south,center=true": { "model": "crystaldiv:block/advanced_rune_center", "y": 180 },
+        "facing=west,center=true":  { "model": "crystaldiv:block/advanced_rune_center", "y": 270 },
+        "facing=east,center=true":  { "model": "crystaldiv:block/advanced_rune_center", "y": 90 },
+        "facing=up,center=true": { "model": "crystaldiv:block/advanced_rune_center", "x": 270 },
+        "facing=down,center=true": { "model": "crystaldiv:block/advanced_rune_center", "x": 90 },
+        "facing=north,center=false": { "model": "crystaldiv:block/advanced_rune_side" },
+        "facing=south,center=false": { "model": "crystaldiv:block/advanced_rune_side", "y": 180 },
+        "facing=west,center=false":  { "model": "crystaldiv:block/advanced_rune_side", "y": 270 },
+        "facing=east,center=false":  { "model": "crystaldiv:block/advanced_rune_side", "y": 90 },
+        "facing=up,center=false": { "model": "crystaldiv:block/advanced_rune_side", "x": 270 },
+        "facing=down,center=false": { "model": "crystaldiv:block/advanced_rune_side", "x": 90 }
+    }
+}

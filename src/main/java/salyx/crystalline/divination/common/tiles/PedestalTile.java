@@ -10,13 +10,13 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import salyx.crystalline.divination.CrystalDiv;
 import salyx.crystalline.divination.common.containers.PedestalContainer;
-import salyx.crystalline.divination.common.tiles.runes.BaseRuneTile;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 
 public class PedestalTile extends LockableLootTileEntity implements ITickableTileEntity{
@@ -24,7 +24,7 @@ public class PedestalTile extends LockableLootTileEntity implements ITickableTil
     public static int slots = 1;
 
     public boolean isUsedForCrafting = false;
-    public BaseRuneTile craftingRune;
+    public TileEntity craftingRune;
 
     protected NonNullList<ItemStack> items = NonNullList.withSize(slots, ItemStack.EMPTY);
 
@@ -102,4 +102,9 @@ public class PedestalTile extends LockableLootTileEntity implements ITickableTil
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
         this.read(this.getBlockState(), pkt.getNbtCompound());
     }
+    @Override
+    public int getInventoryStackLimit() {
+        return 1;
+    }
+    
 }

@@ -8,6 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer.Builder;
@@ -19,14 +20,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import salyx.crystalline.divination.common.tiles.runes.SentientRuneTile;
+import net.minecraftforge.fml.network.NetworkHooks;
+import salyx.crystalline.divination.common.tiles.runes.CognitiveRuneTile;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 
-public class SentientRune extends Rune{
+public class CognitiveRune extends Rune{
 
     public static final BooleanProperty CENTER = BooleanProperty.create("center");
     
-    public SentientRune(Properties properties) {
+    public CognitiveRune(Properties properties) {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(CENTER, true));
     }
@@ -39,6 +41,13 @@ public class SentientRune extends Rune{
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
             Hand handIn, BlockRayTraceResult hit) {
+        if(!worldIn.isRemote()){
+            TileEntity te = worldIn.getTileEntity(pos);
+            
+            if(te instanceof CognitiveRuneTile && state.get(CognitiveRune.CENTER)) {
+                NetworkHooks.openGui((ServerPlayerEntity) player, (CognitiveRuneTile) te, pos);
+            }
+        }
         if(worldIn.isRemote()) {
             return ActionResultType.SUCCESS;
         }
@@ -55,28 +64,28 @@ public class SentientRune extends Rune{
     }
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return TileEntityInit.SENTIENT_RUNE_TILE_TYPE.get().create();
+        return TileEntityInit.COGNITIVE_RUNE_TILE_TYPE.get().create();
     }
     @SuppressWarnings( "deprecation" )
     @Override
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        SentientRuneTile te = (SentientRuneTile) worldIn.getTileEntity(pos);
+        CognitiveRuneTile te = (CognitiveRuneTile) worldIn.getTileEntity(pos);
         if(!state.isIn(newState.getBlock())) {
-            if(state.get(SentientRune.CENTER)){
+            if(state.get(CognitiveRune.CENTER)){
                 for(int p = 0; p < te.getSides().size(); p++){
                     worldIn.destroyBlock(te.getSides().get(p), false);
                 }
             }
-            if(!state.get(SentientRune.CENTER)){
+            if(!state.get(CognitiveRune.CENTER)){
                 worldIn.destroyBlock(te.getCenter(), false);
             }
         }
         super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
     public void createSides(BlockState state, BlockPos pos, World worldIn){
-        if(state.get(SentientRune.CENTER) == true){
+        if(state.get(CognitiveRune.CENTER) == true){
             boolean canceled = false;
-            if(state.get(SentientRune.FACING) == Direction.UP || state.get(SentientRune.FACING) == Direction.DOWN){
+            if(state.get(CognitiveRune.FACING) == Direction.UP || state.get(CognitiveRune.FACING) == Direction.DOWN){
                 List<BlockPos> sidePos = new ArrayList<BlockPos>();
                 sidePos.add(pos.north());sidePos.add(pos.east());sidePos.add(pos.south());sidePos.add(pos.west());
                 sidePos.add(pos.north().east());sidePos.add(pos.east().south());
@@ -84,9 +93,9 @@ public class SentientRune extends Rune{
                 List<BlockPos> sidePos1 = new ArrayList<BlockPos>();
                 for(int pos1 = 0; pos1 < sidePos.size(); pos1++){
                     if(worldIn.getBlockState(sidePos.get(pos1)).isIn(Blocks.AIR) && !canceled){
-                        worldIn.setBlockState(sidePos.get(pos1), state.with(SentientRune.CENTER, false));
-                        if(worldIn.getTileEntity(sidePos.get(pos1)) instanceof SentientRuneTile){
-                            SentientRuneTile te = (SentientRuneTile) worldIn.getTileEntity(sidePos.get(pos1));
+                        worldIn.setBlockState(sidePos.get(pos1), state.with(CognitiveRune.CENTER, false));
+                        if(worldIn.getTileEntity(sidePos.get(pos1)) instanceof CognitiveRuneTile){
+                            CognitiveRuneTile te = (CognitiveRuneTile) worldIn.getTileEntity(sidePos.get(pos1));
                             te.setCenterPos(pos);
                             sidePos1.add(sidePos.get(pos1));
                         }
@@ -95,12 +104,12 @@ public class SentientRune extends Rune{
                         canceled = true;
                     }
                 }
-                if(worldIn.getTileEntity(pos) instanceof SentientRuneTile){
-                    SentientRuneTile te = (SentientRuneTile) worldIn.getTileEntity(pos);
+                if(worldIn.getTileEntity(pos) instanceof CognitiveRuneTile){
+                    CognitiveRuneTile te = (CognitiveRuneTile) worldIn.getTileEntity(pos);
                     te.setSides(sidePos1);
                 }
             }
-            else if(state.get(SentientRune.FACING) == Direction.NORTH || state.get(SentientRune.FACING) == Direction.SOUTH){
+            else if(state.get(CognitiveRune.FACING) == Direction.NORTH || state.get(CognitiveRune.FACING) == Direction.SOUTH){
                 List<BlockPos> sidePos = new ArrayList<BlockPos>();
                 sidePos.add(pos.up());sidePos.add(pos.east());sidePos.add(pos.down());sidePos.add(pos.west());
                 sidePos.add(pos.up().east());sidePos.add(pos.east().down());
@@ -108,9 +117,9 @@ public class SentientRune extends Rune{
                 List<BlockPos> sidePos1 = new ArrayList<BlockPos>();
                 for(int pos1 = 0; pos1 < sidePos.size(); pos1++){
                     if(worldIn.getBlockState(sidePos.get(pos1)).isIn(Blocks.AIR) && !canceled){
-                        worldIn.setBlockState(sidePos.get(pos1), state.with(SentientRune.CENTER, false));
-                        if(worldIn.getTileEntity(sidePos.get(pos1)) instanceof SentientRuneTile){
-                            SentientRuneTile te = (SentientRuneTile) worldIn.getTileEntity(sidePos.get(pos1));
+                        worldIn.setBlockState(sidePos.get(pos1), state.with(CognitiveRune.CENTER, false));
+                        if(worldIn.getTileEntity(sidePos.get(pos1)) instanceof CognitiveRuneTile){
+                            CognitiveRuneTile te = (CognitiveRuneTile) worldIn.getTileEntity(sidePos.get(pos1));
                             te.setCenterPos(pos);
                             sidePos1.add(sidePos.get(pos1));
                         }
@@ -119,12 +128,12 @@ public class SentientRune extends Rune{
                         canceled = true;
                     }
                 }
-                if(worldIn.getTileEntity(pos) instanceof SentientRuneTile){
-                    SentientRuneTile te = (SentientRuneTile) worldIn.getTileEntity(pos);
+                if(worldIn.getTileEntity(pos) instanceof CognitiveRuneTile){
+                    CognitiveRuneTile te = (CognitiveRuneTile) worldIn.getTileEntity(pos);
                     te.setSides(sidePos1);
                 }
             }
-            else if(state.get(SentientRune.FACING) == Direction.EAST || state.get(SentientRune.FACING) == Direction.WEST){
+            else if(state.get(CognitiveRune.FACING) == Direction.EAST || state.get(CognitiveRune.FACING) == Direction.WEST){
                 List<BlockPos> sidePos = new ArrayList<BlockPos>();
                 sidePos.add(pos.north());sidePos.add(pos.up());sidePos.add(pos.south());sidePos.add(pos.down());
                 sidePos.add(pos.north().up());sidePos.add(pos.up().south());
@@ -132,9 +141,9 @@ public class SentientRune extends Rune{
                 List<BlockPos> sidePos1 = new ArrayList<BlockPos>();
                 for(int pos1 = 0; pos1 < sidePos.size(); pos1++){
                     if(worldIn.getBlockState(sidePos.get(pos1)).isIn(Blocks.AIR) && !canceled){
-                        worldIn.setBlockState(sidePos.get(pos1), state.with(SentientRune.CENTER, false));
-                        if(worldIn.getTileEntity(sidePos.get(pos1)) instanceof SentientRuneTile){
-                            SentientRuneTile te = (SentientRuneTile) worldIn.getTileEntity(sidePos.get(pos1));
+                        worldIn.setBlockState(sidePos.get(pos1), state.with(CognitiveRune.CENTER, false));
+                        if(worldIn.getTileEntity(sidePos.get(pos1)) instanceof CognitiveRuneTile){
+                            CognitiveRuneTile te = (CognitiveRuneTile) worldIn.getTileEntity(sidePos.get(pos1));
                             te.setCenterPos(pos);
                             sidePos1.add(sidePos.get(pos1));
                         }
@@ -143,8 +152,8 @@ public class SentientRune extends Rune{
                         canceled = true;
                     }
                 }
-                if(worldIn.getTileEntity(pos) instanceof SentientRuneTile){
-                    SentientRuneTile te = (SentientRuneTile) worldIn.getTileEntity(pos);
+                if(worldIn.getTileEntity(pos) instanceof CognitiveRuneTile){
+                    CognitiveRuneTile te = (CognitiveRuneTile) worldIn.getTileEntity(pos);
                     te.setSides(sidePos1);
                 }
             }

@@ -105,6 +105,7 @@ public class StorageRuneTile extends LockableLootTileEntity implements ITickable
             if(this.world.getTileEntity(pos) instanceof SentientRuneTile){
                 SentientRuneTile te = (SentientRuneTile) this.world.getTileEntity(pos);
                 te.addRune(this.pos, this.getTileData().getUniqueId("UUID"), "storage");
+                
             }
         }
     }

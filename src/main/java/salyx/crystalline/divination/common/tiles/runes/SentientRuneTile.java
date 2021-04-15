@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
@@ -86,7 +87,16 @@ public class SentientRuneTile extends LockableLootTileEntity implements ITickabl
     protected Container createMenu(int id, PlayerInventory player) {
         return null;
     }
-    
+    @Override
+    public void read(BlockState state, CompoundNBT nbt) {
+        // TODO Auto-generated method stub
+        super.read(state, nbt);;
+    }
+    @Override
+    public CompoundNBT write(CompoundNBT compound) {
+        super.write(compound);
+        return compound;
+    }
     public void setCenterPos(BlockPos centerTile){
         List<Integer> pos = new ArrayList<Integer>();
         pos.add(centerTile.getX());

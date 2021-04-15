@@ -188,6 +188,7 @@ public class EventHandler {
     public static void onRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
         ItemStack offhand = event.getPlayer().getHeldItemOffhand();
         if(event.getPlayer().getHeldItemMainhand().isItemEqual(ItemInit.DIVINATION_WAND.get().getDefaultInstance()) &&
+        !(event.getWorld().getBlockState(event.getPos()).getBlock() instanceof Rune) &&
         (offhand.isItemEqual(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance()) ||
         offhand.isItemEqual(ItemInit.STORAGE_RUNIC_PARCHMENT.get().getDefaultInstance()) ||
         offhand.isItemEqual(ItemInit.EXPORT_RUNIC_PARCHMENT.get().getDefaultInstance()) ||

@@ -88,9 +88,16 @@ public class ImportRuneTile extends LockableLootTileEntity implements ITickableT
         if (!this.checkLootAndWrite(compound)) {
             ItemStackHelper.saveAllItems(compound, this.inventory);
         }
-
         compound.putInt("TransferCooldown", this.transferCooldown);
         return compound;
+    }
+    @Override
+    public CompoundNBT serializeNBT() {
+        return super.serializeNBT();
+    }
+    @Override
+    public CompoundNBT getUpdateTag() {
+        return this.write(new CompoundNBT());
     }
     @Override
     public SUpdateTileEntityPacket getUpdatePacket() {
@@ -134,6 +141,7 @@ public class ImportRuneTile extends LockableLootTileEntity implements ITickableT
     }
 
     public void tick() {
+        this.world.notifyBlockUpdate(pos, this.getBlockState(), this.getBlockState(), 0);
         if (this.world != null && !this.world.isRemote) {
             if(this.getHasDest()){
                 BlockPos sourcePos = new BlockPos(this.getDestX(), this.getDestY(), this.getDestZ());

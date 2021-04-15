@@ -11,7 +11,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
+import salyx.crystalline.divination.common.tiles.runes.AdvancedRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.BaseRuneTile;
+import salyx.crystalline.divination.common.tiles.runes.CognitiveRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.ExportRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.ImportRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.SentientRuneTile;
@@ -30,7 +32,7 @@ public class DivinationWand extends Item{
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
         
-        if(context.getPlayer().isSneaking() && context.getWorld().getTileEntity(context.getPos()) instanceof BaseRuneTile){
+        if(context.getPlayer().isSneaking() && (context.getWorld().getTileEntity(context.getPos()) instanceof BaseRuneTile)){
             
             BaseRuneTile bte = (BaseRuneTile) context.getWorld().getTileEntity(context.getPos());
             List<String> baseRuneItems = new ArrayList<String>();
@@ -77,7 +79,7 @@ public class DivinationWand extends Item{
             // TIER 2 CRAFTING
             List<PedestalTile> pedestals = bte.checkPedestals(2, 4);
             List<String> pedestalItems = new ArrayList<String>();
-                if(bte.checkPedestals(2, 4) != null){
+                if(pedestals != null){
                     pedestalItems.add(pedestals.get(0).getItem().getItem().getDefaultInstance().toString());
                     pedestalItems.add(pedestals.get(1).getItem().getItem().getDefaultInstance().toString());
                     pedestalItems.add(pedestals.get(2).getItem().getItem().getDefaultInstance().toString());
@@ -101,6 +103,80 @@ public class DivinationWand extends Item{
                     bte.pedestals = pedestals;
                     bte.craftItem(ItemInit.RUNIC_INTERCEPTOR.get().getDefaultInstance(), 2);
                 }
+        }
+        else if(context.getPlayer().isSneaking() && (context.getWorld().getTileEntity(context.getPos()) instanceof AdvancedRuneTile)){
+
+            AdvancedRuneTile bte = (AdvancedRuneTile) context.getWorld().getTileEntity(context.getPos());
+            List<String> baseRuneItems = new ArrayList<String>();
+            baseRuneItems.add(bte.getItem(1).getItem().getItem().getDefaultInstance().toString());
+            baseRuneItems.add(bte.getItem(2).getItem().getItem().getDefaultInstance().toString());
+            baseRuneItems.add(bte.getItem(3).getItem().getItem().getDefaultInstance().toString());
+            baseRuneItems.add(bte.getItem(4).getItem().getItem().getDefaultInstance().toString());
+            baseRuneItems.sort(null);
+            if(bte.getItem(0).getItem().getDefaultInstance().isItemEqualIgnoreDurability(Items.CHEST.getDefaultInstance()) &&
+                baseRuneItems.contains(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.contains(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.contains(ItemInit.PYRO_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.contains(ItemInit.HYDRO_CRYSTAL.get().getDefaultInstance().toString())) {
+                    bte.craftRune(BlockInit.STORAGE_RUNE.get(), ItemInit.STORAGE_RUNIC_PARCHMENT.get().getDefaultInstance(), 1);
+                }
+            if(bte.getItem(0).getItem().getDefaultInstance().isItemEqualIgnoreDurability(Items.GLASS_PANE.getDefaultInstance()) &&
+                baseRuneItems.contains(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.contains(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.contains(ItemInit.PYRO_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.contains(ItemInit.HYDRO_CRYSTAL.get().getDefaultInstance().toString())) {
+                    bte.craftItem(ItemInit.CRYSTALLINE_TABLET.get().getDefaultInstance(), 1);
+                }
+            if(bte.getItem(0).getItem().getDefaultInstance().isItemEqualIgnoreDurability(Items.HOPPER.getDefaultInstance()) &&
+                baseRuneItems.get(0).equals(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(1).equals(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(2).equals(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(3).equals(ItemInit.SOLAR_CRYSTAL.get().getDefaultInstance().toString())) {
+                    bte.craftRune(BlockInit.EXPORT_RUNE.get(), ItemInit.EXPORT_RUNIC_PARCHMENT.get().getDefaultInstance(), 1);
+                }
+            if(bte.getItem(0).getItem().getDefaultInstance().isItemEqualIgnoreDurability(Items.HOPPER.getDefaultInstance()) &&
+                baseRuneItems.get(0).equals(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(1).equals(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(2).equals(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(3).equals(ItemInit.LUNAR_CRYSTAL.get().getDefaultInstance().toString())) {
+                    bte.craftRune(BlockInit.IMPORT_RUNE.get(), ItemInit.IMPORT_RUNIC_PARCHMENT.get().getDefaultInstance(), 1);
+                }
+            if(bte.getItem(0).getItem().getDefaultInstance().isItemEqualIgnoreDurability(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance()) &&
+                baseRuneItems.get(0).equals(Items.PAPER.getDefaultInstance().toString()) &&
+                baseRuneItems.get(1).equals(Items.PAPER.getDefaultInstance().toString()) &&
+                baseRuneItems.get(2).equals(Items.PAPER.getDefaultInstance().toString()) &&
+                baseRuneItems.get(3).equals(Items.PAPER.getDefaultInstance().toString())) {
+                    bte.craftRune(BlockInit.IMPORT_RUNE.get(), ItemInit.IMPORT_RUNIC_PARCHMENT.get().getDefaultInstance(), 1);
+                }
+            // TIER 2 CRAFTING
+            List<PedestalTile> pedestals = bte.checkPedestals(4, 4);
+            List<String> pedestalItems = new ArrayList<String>();
+                if(pedestals != null){
+                    pedestalItems.add(pedestals.get(0).getItem().getItem().getDefaultInstance().toString());
+                    pedestalItems.add(pedestals.get(1).getItem().getItem().getDefaultInstance().toString());
+                    pedestalItems.add(pedestals.get(2).getItem().getItem().getDefaultInstance().toString());
+                    pedestalItems.add(pedestals.get(3).getItem().getItem().getDefaultInstance().toString());
+                }
+            pedestalItems.sort(null);
+            if(bte.getItem(0).getItem().getDefaultInstance().isItemEqualIgnoreDurability(ItemInit.PEDESTAL.get().getDefaultInstance()) &&
+                baseRuneItems.get(0).equals(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(1).equals(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(2).equals(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                baseRuneItems.get(3).equals(ItemInit.PURE_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                pedestalItems.contains(ItemInit.SOLAR_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                pedestalItems.contains(ItemInit.LUNAR_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                pedestalItems.contains(ItemInit.PYRO_CRYSTAL_DUST.get().getDefaultInstance().toString()) &&
+                pedestalItems.contains(ItemInit.HYDRO_CRYSTAL_DUST.get().getDefaultInstance().toString())) {
+                    
+                    
+                    for(int p = 0; p<4; p++){
+                        pedestals.get(p).isUsedForCrafting = true;
+                        pedestals.get(p).craftingRune = bte;
+                    }
+                    bte.pedestals = pedestals;
+                    bte.craftItem(ItemInit.RUNIC_INTERCEPTOR.get().getDefaultInstance(), 2);
+                }
+
         }
         else if(context.getPlayer().isSneaking() && context.getWorld().getTileEntity(context.getPos()) instanceof StorageRuneTile && cooldown == 0){
             if(!context.getWorld().isRemote()){
@@ -196,6 +272,27 @@ public class DivinationWand extends Item{
                         te.setDestY(nbt.getInt("Y"));
                         te.setDestZ(nbt.getInt("Z"));
                         te.setHasDest(true);
+                    }
+                    else{
+                        context.getPlayer().sendMessage(new TranslationTextComponent("Too Far Away"), context.getPlayer().getUniqueID());
+                    }
+                }
+            }
+        }
+        else if(context.getPlayer().isSneaking() && context.getWorld().getTileEntity(context.getPos()) instanceof CognitiveRuneTile){
+            CompoundNBT nbt;
+            CognitiveRuneTile te = (CognitiveRuneTile) context.getWorld().getTileEntity(context.getPos());
+            if(context.getPlayer().getHeldItemMainhand().hasTag()) {
+                nbt = context.getPlayer().getHeldItemMainhand().getTag();
+            }
+            else {
+                nbt = new CompoundNBT();
+            }
+            if(nbt.contains("X") && nbt.contains("Y") && nbt.contains("Z") && nbt.contains("sourceBlock")){
+                if(nbt.getString("sourceBlock") == "sentient"){
+                    BlockPos sentientPos = new BlockPos(nbt.getInt("X"), nbt.getInt("Y"), nbt.getInt("Z"));
+                    if(sentientPos.withinDistance(te.getPos(), 128)) {
+                        te.setSentient(sentientPos);
                     }
                     else{
                         context.getPlayer().sendMessage(new TranslationTextComponent("Too Far Away"), context.getPlayer().getUniqueID());

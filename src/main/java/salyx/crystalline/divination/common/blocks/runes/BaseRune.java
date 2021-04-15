@@ -19,7 +19,7 @@ import salyx.crystalline.divination.core.init.ItemInit;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 
 public class BaseRune extends Rune{
-    public static int clickCooldown;
+    public int clickCooldown;
 
     public BaseRune(Properties properties) {
         super(properties);
@@ -35,6 +35,9 @@ public class BaseRune extends Rune{
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
             Hand handIn, BlockRayTraceResult hit) {
+        if(worldIn.isRemote()) {
+            return ActionResultType.SUCCESS;
+        }
         if(!worldIn.isRemote()) {
             //worldIn.getServer().getWorld(World.OVERWORLD).setDayTime(worldIn.getDayTime()+10);
 

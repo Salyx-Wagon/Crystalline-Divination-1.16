@@ -7,8 +7,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import salyx.crystalline.divination.CrystalDiv;
 import salyx.crystalline.divination.common.containers.BaseRuneContainer;
+import salyx.crystalline.divination.common.containers.CognitiveRuneContainer;
 import salyx.crystalline.divination.common.containers.PedestalContainer;
 import salyx.crystalline.divination.common.containers.StorageRuneContainer;
+import salyx.crystalline.divination.common.containers.AdvancedRuneContainer;
 
 public class ContainerTypeInit {
     
@@ -21,7 +23,13 @@ public class ContainerTypeInit {
     public static final RegistryObject<ContainerType<BaseRuneContainer>> BASE_RUNE_CONTAINER_TYPE = CONTAINER_TYPES
     .register("base_rune", () -> IForgeContainerType.create(BaseRuneContainer::new));
 
+    public static final RegistryObject<ContainerType<AdvancedRuneContainer>> ADVANCED_RUNE_CONTAINER_TYPE = CONTAINER_TYPES
+    .register("advanced_rune", () -> IForgeContainerType.create(AdvancedRuneContainer::new));
+
     public static final RegistryObject<ContainerType<StorageRuneContainer>> STORAGE_RUNE_CONTAINER_TYPE = CONTAINER_TYPES
     .register("storage_rune", () -> IForgeContainerType.create(StorageRuneContainer::new));
 
+    public static final RegistryObject<ContainerType<CognitiveRuneContainer>> COGNITIVE_RUNE_CONTAINER_TYPE = CONTAINER_TYPES
+    .register("cognitive_rune", () -> IForgeContainerType.create(CognitiveRuneContainer::new));
+    
 }

@@ -99,7 +99,6 @@ public class ImportRune extends Rune{
             }
             
         }
-
         
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }

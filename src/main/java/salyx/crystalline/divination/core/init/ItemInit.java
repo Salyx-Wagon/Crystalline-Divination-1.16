@@ -247,4 +247,8 @@ public class ItemInit {
 
     public static final RegistryObject<BlockItem> SENTIENT_RUNE = ITEMS.register("sentient_rune", () -> new BlockItem(BlockInit.SENTIENT_RUNE.get(), new Item.Properties()));
 
+    public static final RegistryObject<BlockItem> COGNITIVE_RUNE = ITEMS.register("cognitive_rune", () -> new BlockItem(BlockInit.COGNITIVE_RUNE.get(), new Item.Properties()));
+
+    public static final RegistryObject<BlockItem> ADVANCED_RUNE = ITEMS.register("advanced_rune", () -> new BlockItem(BlockInit.ADVANCED_RUNE.get(), new Item.Properties()));
+
 }

@@ -33,7 +33,7 @@ public class CrystalDiv
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::setup);
         bus.addListener(this::commonSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        bus.addListener(this::doClientStuff);
 
         ItemInit.ITEMS.register(bus);
         BlockInit.BLOCKS.register(bus);
@@ -59,6 +59,8 @@ public class CrystalDiv
         RenderTypeLookup.setRenderLayer(BlockInit.EXPORT_RUNE.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(BlockInit.IMPORT_RUNE.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(BlockInit.SENTIENT_RUNE.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.COGNITIVE_RUNE.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.ADVANCED_RUNE.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(BlockInit.SOLAR_CRYSTAL_CLUSTER.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(BlockInit.LUNAR_CRYSTAL_CLUSTER.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(BlockInit.PYRO_CRYSTAL_CLUSTER.get(), RenderType.getTranslucent());

@@ -28,19 +28,20 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import salyx.crystalline.divination.CrystalDiv;
-import salyx.crystalline.divination.common.blocks.runes.BaseRune;
+import salyx.crystalline.divination.common.blocks.runes.AdvancedRune;
 import salyx.crystalline.divination.common.blocks.runes.Rune;
-import salyx.crystalline.divination.common.containers.BaseRuneContainer;
+import salyx.crystalline.divination.common.containers.AdvancedRuneContainer;
 import salyx.crystalline.divination.common.tiles.PedestalTile;
 import salyx.crystalline.divination.common.tiles.RunicInterceptorTile;
 import salyx.crystalline.divination.core.init.ItemInit;
 import salyx.crystalline.divination.core.init.TileEntityInit;
 
-public class BaseRuneTile extends LockableLootTileEntity implements ITickableTileEntity{
+public class AdvancedRuneTile extends LockableLootTileEntity implements ITickableTileEntity{
 
     public boolean crafted;
     public boolean isCraftingBlock;
     public boolean isCraftingItem;
+    @SuppressWarnings("unused")
     private Rune craftingRune;
     private ItemStack craftingItem;
     public int craftingTier;
@@ -52,11 +53,11 @@ public class BaseRuneTile extends LockableLootTileEntity implements ITickableTil
 
     protected NonNullList<ItemStack> items = NonNullList.withSize(slots, ItemStack.EMPTY);
 
-    protected BaseRuneTile(TileEntityType<?> typeIn) {
+    protected AdvancedRuneTile(TileEntityType<?> typeIn) {
         super(typeIn);
     }
-    public BaseRuneTile() {
-        this(TileEntityInit.BASE_RUNE_TILE_TYPE.get());
+    public AdvancedRuneTile() {
+        this(TileEntityInit.ADVANCED_RUNE_TILE_TYPE.get());
     }
     @Override
     public int getSizeInventory() {
@@ -76,11 +77,11 @@ public class BaseRuneTile extends LockableLootTileEntity implements ITickableTil
     }
     @Override
     protected ITextComponent getDefaultName() {
-        return new TranslationTextComponent("container." + CrystalDiv.MOD_ID + ".base_rune");
+        return new TranslationTextComponent("container." + CrystalDiv.MOD_ID + ".advanced_rune");
     }
     @Override
     protected Container createMenu(int id, PlayerInventory player) {
-        return new BaseRuneContainer(id, player, this);
+        return new AdvancedRuneContainer(id, player, this);
     }
     @Override
     public CompoundNBT write(CompoundNBT compound) {
@@ -98,26 +99,13 @@ public class BaseRuneTile extends LockableLootTileEntity implements ITickableTil
             ItemStackHelper.loadAllItems(nbt, this.items);
         }
     }
-    public void cancelCrafting(){
-        this.isCraftingBlock = false;
-        this.isCraftingItem = false;
-        this.tick = 0;
-        if(this.pedestals != null){
-            for(int i = 0; i < this.pedestals.size(); i++){
-                if(this.pedestals.get(i) instanceof PedestalTile){
-                    this.pedestals.get(i).craftingRune = null;
-                    this.pedestals.get(i).isUsedForCrafting = false;
-                    
-                }
-            }
-        }
-    }
-    @SuppressWarnings("static-access")
+
     @Override
-    public void tick() {  
-    BaseRune baseRune = (BaseRune) this.getBlockState().getBlock();
-        if(baseRune.clickCooldown > 0) {
-            baseRune.clickCooldown -= 1; 
+    public void tick() {
+        this.world.notifyBlockUpdate(pos, this.getBlockState(), this.getBlockState(), 0);
+        AdvancedRune advancedRune = (AdvancedRune) this.getBlockState().getBlock();
+        if(advancedRune.clickCooldown > 0) {
+            advancedRune.clickCooldown -= 1; 
         }
         if(this.isCraftingBlock || this.isCraftingItem){this.tick ++;}
         this.getTileData().putInt("tick", this.tick);
@@ -137,17 +125,17 @@ public class BaseRuneTile extends LockableLootTileEntity implements ITickableTil
                     world.spawnParticle(ParticleTypes.CLOUD, this.getPos().getX()+0.5, this.getPos().getY(), this.getPos().getZ()+0.5,
                     20, 0.5, 0, 0.5, 0.1);
                 }
-                if(this.checkInterceptor(2, ItemInit.BLANK_RUNIC_PARCHMENT.get().getDefaultInstance()) != null){
-                    RunicInterceptorTile te = this.checkInterceptor(2, ItemInit.BLANK_RUNIC_PARCHMENT.get().getDefaultInstance());
+                if(this.checkInterceptor(4, ItemInit.BLANK_RUNIC_PARCHMENT.get().getDefaultInstance()) != null){
+                    RunicInterceptorTile te = this.checkInterceptor(4, ItemInit.BLANK_RUNIC_PARCHMENT.get().getDefaultInstance());
                     LazyOptional<IItemHandler> itemHandler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
                     itemHandler.ifPresent(h -> h.extractItem(0, 1, false));
                     itemHandler.ifPresent(h -> h.insertItem(0, this.craftingItem, false));
+                    //System.out.println(this.crafted);
                     this.getWorld().setBlockState(this.getPos(), Blocks.AIR.getDefaultState());
                     
                 }
                 else{
-                    this.getWorld().setBlockState(this.getPos(), this.craftingRune.getDefaultState()
-                    .with(this.craftingRune.FACING, this.getWorld().getBlockState(this.getPos()).get(this.craftingRune.FACING)));
+                    this.cancelCrafting();
                 }
             }
             if(this.isCraftingItem){
@@ -165,8 +153,8 @@ public class BaseRuneTile extends LockableLootTileEntity implements ITickableTil
                     
                     }   
                 }
-                if(this.checkInterceptor(2, ItemStack.EMPTY) != null){
-                    RunicInterceptorTile te = this.checkInterceptor(2, Items.AIR.getDefaultInstance());
+                if(this.checkInterceptor(4, ItemStack.EMPTY) != null){
+                    RunicInterceptorTile te = this.checkInterceptor(4, Items.AIR.getDefaultInstance());
                     itemHandler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
                     itemHandler.ifPresent(h -> h.extractItem(0, 1, false));
                     itemHandler.ifPresent(h -> h.insertItem(0, this.craftingItem, false));
@@ -196,7 +184,42 @@ public class BaseRuneTile extends LockableLootTileEntity implements ITickableTil
     }
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+        //this.read(this.getBlockState(), this.getTileData());
         this.read(this.getBlockState(), pkt.getNbtCompound());
+    }
+    
+    public void setCenterPos(BlockPos centerTile){
+        List<Integer> pos = new ArrayList<Integer>();
+        pos.add(centerTile.getX());
+        pos.add(centerTile.getY());
+        pos.add(centerTile.getZ());
+        this.getTileData().putIntArray("center", pos);
+    }
+    public BlockPos getCenter(){
+        int[] pos = this.getTileData().getIntArray("center");
+        BlockPos pos1 = new BlockPos(pos[0], pos[1], pos[2]);
+        return pos1;
+    }
+    public void setSides(List<BlockPos> sideRuneList){
+        for(int sideRune = 0; sideRune < sideRuneList.size(); sideRune++){
+            List<Integer> pos = new ArrayList<Integer>();
+            pos.add(sideRuneList.get(sideRune).getX());
+            pos.add(sideRuneList.get(sideRune).getY());
+            pos.add(sideRuneList.get(sideRune).getZ());
+            this.getTileData().putIntArray("side" + sideRune, pos);
+        }
+    }
+    public List<BlockPos> getSides(){
+        List<BlockPos> sides = new ArrayList<BlockPos>();
+        for(int sideRune = 0; sideRune < 8; sideRune++){
+            if(this.getTileData().contains("side" + sideRune)){
+                sides.add(new BlockPos(this.getTileData().getIntArray("side" + sideRune)[0],
+                                        this.getTileData().getIntArray("side" + sideRune)[1],
+                                        this.getTileData().getIntArray("side" + sideRune)[2]));
+            }
+            else{break;}
+        }
+        return sides;
     }
     public void craftRune(Rune rune, ItemStack item, int tier){
         this.tick = 0;
@@ -252,5 +275,19 @@ public class BaseRuneTile extends LockableLootTileEntity implements ITickableTil
         }
         if(te != null){return te;}
         return null;
+    }
+    public void cancelCrafting(){
+        this.isCraftingBlock = false;
+        this.isCraftingItem = false;
+        this.tick = 0;
+        if(this.pedestals != null){
+            for(int i = 0; i < this.pedestals.size(); i++){
+                if(this.pedestals.get(i) instanceof PedestalTile){
+                    this.pedestals.get(i).craftingRune = null;
+                    this.pedestals.get(i).isUsedForCrafting = false;
+                    
+                }
+            }
+        }
     }
 }

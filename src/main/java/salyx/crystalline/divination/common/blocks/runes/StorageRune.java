@@ -38,6 +38,9 @@ public class StorageRune extends Rune{
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
             Hand handIn, BlockRayTraceResult hit) {
+        if(worldIn.isRemote()) {
+            return ActionResultType.SUCCESS;
+        }
         if(!worldIn.isRemote()) {
 
             TileEntity te = worldIn.getTileEntity(pos);

@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import salyx.crystalline.divination.common.tiles.runes.AdvancedRuneTile;
 import salyx.crystalline.divination.common.tiles.runes.BaseRuneTile;
 import salyx.crystalline.divination.common.tiles.PedestalTile;
 import salyx.crystalline.divination.core.init.TileEntityInit;
@@ -64,6 +65,9 @@ public class Pedestal extends BaseHorizontalBlock{
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
             Hand handIn, BlockRayTraceResult hit) {
+        if(worldIn.isRemote()) {
+            return ActionResultType.SUCCESS;
+        }
         if(!worldIn.isRemote()) {
             PedestalTile te = (PedestalTile) worldIn.getTileEntity(pos);
             LazyOptional<IItemHandler> itemHandler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
@@ -95,7 +99,10 @@ public class Pedestal extends BaseHorizontalBlock{
             if(tileEntity instanceof PedestalTile) {
                 PedestalTile te = (PedestalTile) tileEntity;
                 if(te.craftingRune instanceof BaseRuneTile){
-                    te.craftingRune.cancelCrafting();
+                    ((BaseRuneTile) te.craftingRune).cancelCrafting();
+                }
+                else if(te.craftingRune instanceof AdvancedRuneTile){
+                    ((AdvancedRuneTile) te.craftingRune).cancelCrafting();
                 }
                 InventoryHelper.dropInventoryItems(worldIn, pos, te);
             }

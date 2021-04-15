@@ -11,3 +11,6 @@
 - "Interfaces" will be Synaptic Runes
 - Activator Rune + redstone
 - Export -> Eccentric; Import -> Insightful; Storage -> Spacious; Base -> Empathic
+- Update crafting recipes to .json
+- Guide Book
+- Upgraded Crystalline Tablet for viewing full system

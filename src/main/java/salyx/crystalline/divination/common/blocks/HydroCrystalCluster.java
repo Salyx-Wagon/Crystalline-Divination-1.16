@@ -40,7 +40,8 @@ public class HydroCrystalCluster extends BaseCrystalCluster{
     }
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(WATERLOGGED, false);
+        //return this.getDefaultState().with(WATERLOGGED, false);
+        return super.getStateForPlacement(context);
     }
 }
 

@@ -78,6 +78,7 @@ public class ExportRune extends Rune{
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
             Hand handIn, BlockRayTraceResult hit) {
+        
         if((player.getHeldItemMainhand().getItem() instanceof DivinationWand) && !worldIn.isRemote()){
             DivinationWand wand = (DivinationWand) player.getHeldItemMainhand().getItem();
             ExportRuneTile te = (ExportRuneTile) worldIn.getTileEntity(pos);
